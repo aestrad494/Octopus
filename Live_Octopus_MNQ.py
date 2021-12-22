@@ -144,6 +144,7 @@ class LiveOctopus(Live, Indicators):
             features_1 = features[:int(n_features/2)]
             features_2 = features[int(n_features/2):]
             lags = 1
+            allow_entry = True
 
             parameters = pd.read_csv('parameters/parameters_%s.csv'%self.symbol)
             layers = parameters.layers[0]
@@ -218,7 +219,7 @@ class LiveOctopus(Live, Indicators):
                     # Check for Entry
                     if self.position == 0 and self.global_position == 0:                # if there's not opened positions
                         second = pd.to_datetime(self.hour).second
-                        if pd.to_datetime(self.hour).minute % ana_time == 0 and (second == 0 or second == 5):
+                        if pd.to_datetime(self.hour).minute % ana_time == 0 and (second == 0 or second == 5) and allow_entry:
                             prediction = 0
                             data_1 = self.resampler(self.data.iloc[-idx_back:], tempos[0]+'S', type='bars')
                             data_2 = self.resampler(self.data.iloc[-idx_back:], tempos[1]+'S', type='bars')
@@ -242,6 +243,10 @@ class LiveOctopus(Live, Indicators):
 
                             prediction = 1 if model.predict(model_input)[0][0][0] > 0.5 else 0
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input, prediction))
+                            allow_entry = False
+
+                        if pd.to_datetime(self.hour).minute % ana_time != 0:
+                            allow_entry = True
                             
                         # Entry conditions
                         if not (self.weekday == 4 and pd.to_datetime(self.hour).time() > pd.to_datetime('16:00:00').time()):
