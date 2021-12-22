@@ -220,7 +220,7 @@ class LiveOctopus(Live, Indicators):
                         if pd.to_datetime(self.hour).minute % ana_time:
                             prediction = 0
                             data_1 = self.resampler(self.data.iloc[-idx_back:], tempos[0]+'S', type='bars')
-                            data_2 = self.resampler(self.data.iloc[-idx_back:], tempos[2]+'S', type='bars')
+                            data_2 = self.resampler(self.data.iloc[-idx_back:], tempos[1]+'S', type='bars')
 
                             pers = periods[1:]
                             for per in pers:
