@@ -41,13 +41,13 @@ class Live():
         self.print('Trying to Connect to Trading Platform...', 'w')
         self._sundays_activation()
         self.ib = IB()
-        #self.print(self.ib.connect('127.0.0.1', port, self.client))
+        self.print(self.ib.connect('127.0.0.1', port, self.client))
         self.connected = self.ib.isConnected()
         self._get_contract()
-        #self.close_opened_position()
-        #self.cancel_pending_orders()
+        self.close_opened_position()
+        self.cancel_pending_orders()
         self.interrumption = False
-        #self.consumer = KafkaConsumer(self.symbol, bootstrap_servers='kafka1:19092')
+        self.consumer = KafkaConsumer(self.symbol, bootstrap_servers='kafka1:19092')
         # Variables
         self.random = RandomWords()
         self.cont_mess = False
