@@ -234,7 +234,7 @@ class Live():
     
     def get_historical_data(self):
         register_get_auth_hook(self.arctic_auth_hook)
-        store = Arctic('157.245.223.103')#('db')
+        store = Arctic('db')#('157.245.223.103')
         library = store['Streaming_IB']
 
         historical_data = library.read(self.symbol).data
