@@ -333,5 +333,5 @@ if __name__ == '__main__':
     final = '2021-11-20'
     periods = ['close', 'SMA_21', 'SMA_89']
     tempos = ['60', '120']          #['180', '240'] ['540', '720']
-    live_octopus.run_strategy(contracts=2, stop=3, target_1=3, target_2=3, trailing=0.7,
+    live_octopus.run_strategy(contracts=2, stop=4, target_1=5, target_2=7, trailing=0.7,
                                 periods=periods, tempos=tempos, init=init, final=final)
