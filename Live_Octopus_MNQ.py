@@ -241,7 +241,7 @@ class LiveOctopus(Live, Indicators):
                             
 
                             prediction = 1 if model.predict(model_input)[0][0][0] > 0.5 else 0
-                            self.print('%s : %d'%(model_input, prediction))
+                            self.print('%s %s | %s : %d'%(self.date, self.hour, model_input, prediction))
                             
                         # Entry conditions
                         if not (self.weekday == 4 and pd.to_datetime(self.hour).time() > pd.to_datetime('16:00:00').time()):
