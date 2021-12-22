@@ -237,8 +237,10 @@ class LiveOctopus(Live, Indicators):
                             model_input = list(data_1_eval.iloc[-1][features_1].values)
                             model_input.extend(list(data_2_eval.iloc[-1][features_2].values))
                             model_input = np.reshape(model_input, [1, lags, n_features])
+                            
 
                             prediction = 1 if model.predict(model_input)[0][0][0] > 0.5 else 0
+                            self.print('%s : %d'%(model_input, prediction))
                             
                         # Entry conditions
                         if not (self.weekday == 4 and pd.to_datetime(self.hour).time() > pd.to_datetime('16:00:00').time()):
