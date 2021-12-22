@@ -251,7 +251,6 @@ class LiveOctopus(Live, Indicators):
                                 price_buy_in_1, sl_buy_1, tp_buy_1, time_buy_in, comm_buy_in_1, profit_buy, ord_buy_sl_1, ord_buy_tp_1 = self.braket_market('BUY', contracts/2, stop, target_1, max_stop)
                                 price_buy_in_2, sl_buy_2, tp_buy_2, time_buy_in, comm_buy_in_2, profit_buy, ord_buy_sl_2, ord_buy_tp_2 = self.braket_market('BUY', contracts/2, stop, target_2, max_stop, entry_price=price_buy_in_1)     
                                 if price_buy_in_1 > 0 and price_buy_in_2 > 0: sent = True
-                                bar_entry = len(movements)
                                 tr_1 = self.x_round(trailing * target_1)
                                 tr_2 = self.x_round(trailing * target_2)
                                 exit_1 = False
