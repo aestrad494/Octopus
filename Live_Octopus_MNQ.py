@@ -217,7 +217,8 @@ class LiveOctopus(Live, Indicators):
                 if self.connected:
                     # Check for Entry
                     if self.position == 0 and self.global_position == 0:                # if there's not opened positions
-                        if pd.to_datetime(self.hour).minute % ana_time:
+                        second = pd.to_datetime(self.hour).second
+                        if pd.to_datetime(self.hour).minute % ana_time and (second == 0 or second == 1 or second == 2):
                             prediction = 0
                             data_1 = self.resampler(self.data.iloc[-idx_back:], tempos[0]+'S', type='bars')
                             data_2 = self.resampler(self.data.iloc[-idx_back:], tempos[1]+'S', type='bars')
