@@ -240,7 +240,6 @@ class LiveOctopus(Live, Indicators):
                             model_input.extend(list(data_2_eval.iloc[-1][features_2].values))
                             model_input = np.reshape(model_input, [1, lags, n_features])
                             
-
                             prediction = 1 if model.predict(model_input)[0][0][0] > 0.5 else 0
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input, prediction))
                             allow_entry = False
