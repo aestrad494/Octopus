@@ -1,8 +1,12 @@
 Trying to Connect to Trading Platform...
 <IB connected to 127.0.0.1:7497 clientId=152>
-opened positions: -1
+opened positions: 2
 opened positions closed
-2021-12-22 00:59:36 | Octopus 2 Contracts Bot Turned On
-2021-12-22 00:59:36 | Running with stop: 4 & target_1: 5 & target_2: 7 & trailing: 0.70
+LMT order with id 45 is cancelled
+STP order with id 46 is cancelled
+STP order with id 50 is cancelled
+LMT order with id 49 is cancelled
+2022-01-03 22:32:58 | Octopus 2 Contracts Bot Turned On
+2022-01-03 22:32:58 | Running with stop: 4 & target_1: 5 & target_2: 7 & trailing: 0.70
 Downloading Historical NQ Data...
-Historical Data retrieved! from 2021-12-07 00:00:00 to 2021-12-22 00:59:25
+Historical Data retrieved! from 2021-12-20 00:00:00 to 2022-01-03 22:32:50
