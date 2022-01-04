@@ -244,7 +244,8 @@ class LiveOctopus(Live, Indicators):
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input, prediction))
                             allow_entry = True
 
-                        if pd.to_datetime(self.hour).minute % ana_time != 0 and second > 5:
+                        #if pd.to_datetime(self.hour).minute % ana_time != 0 and second > 5:
+                        if second > 5:
                             allow_entry = False
                             
                         # Entry conditions
