@@ -245,7 +245,7 @@ class LiveOctopus(Live, Indicators):
                             allow_entry = True
 
                         #if pd.to_datetime(self.hour).minute % ana_time != 0 and second > 5:
-                        if second > 5 or pd.to_datetime(self.hour).minute % 0 != 0:
+                        if second > 5 or pd.to_datetime(self.hour).minute % ana_time != 0:
                             allow_entry = False
                             
                         # Entry conditions
