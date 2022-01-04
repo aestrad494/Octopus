@@ -219,7 +219,7 @@ class LiveOctopus(Live, Indicators):
                     # Check for Entry
                     if self.position == 0 and self.global_position == 0:                # if there's not opened positions
                         second = pd.to_datetime(self.hour).second
-                        if pd.to_datetime(self.hour).minute % ana_time == 0 and (second == 0 or second == 5) and allow_entry:
+                        if pd.to_datetime(self.hour).minute % ana_time == 0 and (second == 0 or second == 5):
                             prediction = 0
                             data_1 = self.resampler(self.data.iloc[-idx_back:], tempos[0]+'S', type='bars')
                             data_2 = self.resampler(self.data.iloc[-idx_back:], tempos[1]+'S', type='bars')
@@ -242,15 +242,15 @@ class LiveOctopus(Live, Indicators):
                             
                             prediction = 1 if model.predict(model_input)[0][0][0] > 0.5 else 0
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input, prediction))
-                            allow_entry = False
-
-                        if pd.to_datetime(self.hour).minute % ana_time != 0:
                             allow_entry = True
+
+                        if pd.to_datetime(self.hour).minute % ana_time != 0 and second > 5:
+                            allow_entry = False
                             
                         # Entry conditions
                         if not (self.weekday == 4 and pd.to_datetime(self.hour).time() > pd.to_datetime('16:00:00').time()):
                             ## Buys
-                            if not sent and prediction > 0:
+                            if not sent and prediction > 0 and allow_entry:
                                 max_stop = stop*self.leverage*contracts
                                 price_buy_in_1, sl_buy_1, tp_buy_1, time_buy_in, comm_buy_in_1, profit_buy, ord_buy_sl_1, ord_buy_tp_1 = self.braket_market('BUY', contracts/2, stop, target_1, max_stop)
                                 price_buy_in_2, sl_buy_2, tp_buy_2, time_buy_in, comm_buy_in_2, profit_buy, ord_buy_sl_2, ord_buy_tp_2 = self.braket_market('BUY', contracts/2, stop, target_2, max_stop, entry_price=price_buy_in_1)     
