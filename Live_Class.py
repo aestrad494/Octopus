@@ -513,7 +513,7 @@ class Live():
                     ord_tp = LimitOrder(contrary_action, qty, tp_price, tif='GTC', outsideRth=True)
                     ord_sl = StopOrder(contrary_action, qty, sl_price, tif='GTC', outsideRth=True)
                     group_id = '%s_%s'%(self.random.get_random_word(),self.random.get_random_word())
-                    self.ib.oneCancelsAll([ord_sl, ord_tp], group_id, 1); print(group_id)
+                    self.ib.oneCancelsAll([ord_sl, ord_tp], group_id, 1)#; print(group_id)
                     self.ib.placeOrder(self.contract, ord_tp)
                     self.ib.placeOrder(self.contract, ord_sl)
                     self.position += mult*int(qty); self.save_position()
