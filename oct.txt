@@ -1,27 +1,24 @@
-2022-01-04 00:08:13.002045: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-01-04 00:08:13.002096: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-2022-01-04 00:08:14.600961: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
-2022-01-04 00:08:14.601217: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-01-04 00:08:14.601231: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
-2022-01-04 00:08:14.601250: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (ib): /proc/driver/nvidia/version does not exist
-2022-01-04 00:08:14.601488: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+2022-01-04 00:11:34.854500: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-04 00:11:34.854547: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2022-01-04 00:11:36.480847: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2022-01-04 00:11:36.481149: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-01-04 00:11:36.481162: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2022-01-04 00:11:36.481183: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (ib): /proc/driver/nvidia/version does not exist
+2022-01-04 00:11:36.481471: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-01-04 00:08:14.601762: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
-Traceback (most recent call last):
-  File "Live_Octopus_MNQ.py", line 341, in <module>
-    live_octopus.run_strategy(contracts=2, stop=4, target_1=5, target_2=7, trailing=0.7,
-  File "Live_Octopus_MNQ.py", line 248, in run_strategy
-    if second > 5 or pd.to_datetime(self.hour).minute % 0 != 0:
-ZeroDivisionError: integer division or modulo by zero
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
-WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/guide/checkpoint#loading_mechanics for details.
-WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/guide/checkpoint#loading_mechanics for details.
+2022-01-04 00:11:36.481775: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2022-01-04 00:12:01.629998: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2022-01-04 00:12:01.630527: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2294605000 Hz
+WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_input'), name='dense_input', description="created by layer 'dense_input'"), but it was called on an input with incompatible shape (None, 1, 12).
+WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_input'), name='dense_input', description="created by layer 'dense_input'"), but it was called on an input with incompatible shape (None, 1, 12).
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-andres'
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1102, reqId -1: Connectivity between IB and Trader Workstation has been restored - data maintained.
+ERROR:ib_insync.wrapper:Error 104, reqId 126: Cannot modify a filled order.
