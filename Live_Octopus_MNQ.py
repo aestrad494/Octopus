@@ -334,8 +334,8 @@ if __name__ == '__main__':
 
     live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus (demo)', temp='1 min', port=port, client=client, real=False)
     
-    init = '2021-10-16'
-    final = '2021-11-20'
+    init = '2021-12-01'
+    final = '2021-12-31'
     periods = ['close', 'SMA_21', 'SMA_89']
     tempos = ['60', '120']          #['180', '240'] ['540', '720']
     live_octopus.run_strategy(contracts=2, stop=4, target_1=5, target_2=7, trailing=0.7,
