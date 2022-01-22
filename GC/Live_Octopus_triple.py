@@ -134,7 +134,7 @@ class LiveOctopus(Live, Indicators):
             #max_tempos = max([int(tem[1]) for tem in tempos])
             max_tempos_1 = int(tempos[0][1])
             max_tempos_2 = int(tempos[1][1])
-            max_tempos_2 = int(tempos[2][1])
+            max_tempos_3 = int(tempos[2][1])
 
             max_periods = max([int(periods[i][4:]) for i in range(1, len(periods))])
             #idx_back = int((max(periods)+5)*max(tempos)/5)
@@ -244,7 +244,7 @@ class LiveOctopus(Live, Indicators):
                         if ((hour in [0, 3, 6, 9, 12, 15, 18, 21] and minute in [36, 0]) or \
                            (hour in [1, 4, 7, 10, 13, 16, 19, 22] and minute in [12, 48]) or \
                            (hour in [2, 5, 8, 11, 14, 17, 20, 23] and minute in [24])) and (second == 0 or second == 5):
-                            prediction_1 = 0: prediction_2 = 0; prediction_3 = 0
+                            prediction_1 = 0; prediction_2 = 0; prediction_3 = 0
                             data_1 = self.resampler(self.data.iloc[-idx_back_1:], tempos[0][0]+'S', type='bars')
                             data_2 = self.resampler(self.data.iloc[-idx_back_1:], tempos[0][1]+'S', type='bars')
                             data_3 = self.resampler(self.data.iloc[-idx_back_2:], tempos[1][0]+'S', type='bars')
@@ -288,9 +288,9 @@ class LiveOctopus(Live, Indicators):
                             model_input_56.extend(list(data_6_eval.iloc[-1][features_6].values))
                             model_input_56 = np.reshape(model_input_56, [1, lags, n_features])
                             
-                            prediction_1 = 1 if model.predict(model_input_1)[0][0][0] > 0.9 else 0
-                            prediction_2 = 1 if model.predict(model_input_2)[0][0][0] > 0.9 else 0
-                            prediction_3 = 1 if model.predict(model_input_3)[0][0][0] > 0.9 else 0
+                            prediction_1 = 1 if model.predict(model_input_12)[0][0][0] > 0.9 else 0
+                            prediction_2 = 1 if model.predict(model_input_34)[0][0][0] > 0.9 else 0
+                            prediction_3 = 1 if model.predict(model_input_56)[0][0][0] > 0.9 else 0
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input_12, prediction_1))
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input_34, prediction_2))
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input_56, prediction_3))
@@ -308,12 +308,12 @@ class LiveOctopus(Live, Indicators):
                                 max_stop_1 = stop_1*self.leverage*contracts/3
                                 max_stop_2 = stop_2*self.leverage*contracts/3
                                 max_stop_3 = stop_3*self.leverage*contracts/3
-                                price_buy_in_1, sl_buy_1, tp_buy_1, time_buy_in, comm_buy_in_1, profit_buy, ord_buy_sl_1, ord_buy_tp_1 = self.braket_market('BUY', contracts/6, stop, target_1, max_stop_1)
-                                price_buy_in_2, sl_buy_2, tp_buy_2, time_buy_in, comm_buy_in_2, profit_buy, ord_buy_sl_2, ord_buy_tp_2 = self.braket_market('BUY', contracts/6, stop, target_2, max_stop_1, entry_price=price_buy_in_1)     
-                                price_buy_in_3, sl_buy_3, tp_buy_3, time_buy_in, comm_buy_in_3, profit_buy, ord_buy_sl_3, ord_buy_tp_3 = self.braket_market('BUY', contracts/6, stop, target_3, max_stop_2)
-                                price_buy_in_4, sl_buy_4, tp_buy_4, time_buy_in, comm_buy_in_4, profit_buy, ord_buy_sl_4, ord_buy_tp_4 = self.braket_market('BUY', contracts/6, stop, target_4, max_stop_2, entry_price=price_buy_in_3)     
-                                price_buy_in_5, sl_buy_5, tp_buy_5, time_buy_in, comm_buy_in_5, profit_buy, ord_buy_sl_5, ord_buy_tp_5 = self.braket_market('BUY', contracts/6, stop, target_5, max_stop_3)
-                                price_buy_in_6, sl_buy_6, tp_buy_6, time_buy_in, comm_buy_in_6, profit_buy, ord_buy_sl_6, ord_buy_tp_6 = self.braket_market('BUY', contracts/6, stop, target_6, max_stop_3, entry_price=price_buy_in_5)     
+                                price_buy_in_1, sl_buy_1, tp_buy_1, time_buy_in, comm_buy_in_1, profit_buy, ord_buy_sl_1, ord_buy_tp_1 = self.braket_market('BUY', contracts/6, stop_1, target_1, max_stop_1)
+                                price_buy_in_2, sl_buy_2, tp_buy_2, time_buy_in, comm_buy_in_2, profit_buy, ord_buy_sl_2, ord_buy_tp_2 = self.braket_market('BUY', contracts/6, stop_1, target_2, max_stop_1, entry_price=price_buy_in_1)     
+                                price_buy_in_3, sl_buy_3, tp_buy_3, time_buy_in, comm_buy_in_3, profit_buy, ord_buy_sl_3, ord_buy_tp_3 = self.braket_market('BUY', contracts/6, stop_2, target_3, max_stop_2)
+                                price_buy_in_4, sl_buy_4, tp_buy_4, time_buy_in, comm_buy_in_4, profit_buy, ord_buy_sl_4, ord_buy_tp_4 = self.braket_market('BUY', contracts/6, stop_2, target_4, max_stop_2, entry_price=price_buy_in_3)     
+                                price_buy_in_5, sl_buy_5, tp_buy_5, time_buy_in, comm_buy_in_5, profit_buy, ord_buy_sl_5, ord_buy_tp_5 = self.braket_market('BUY', contracts/6, stop_3, target_5, max_stop_3)
+                                price_buy_in_6, sl_buy_6, tp_buy_6, time_buy_in, comm_buy_in_6, profit_buy, ord_buy_sl_6, ord_buy_tp_6 = self.braket_market('BUY', contracts/6, stop_3, target_6, max_stop_3, entry_price=price_buy_in_5)     
                                 if price_buy_in_1 > 0 and price_buy_in_2 > 0: sent = True
                                 tr_1 = self.x_round(trailing_1 * target_1)
                                 tr_2 = self.x_round(trailing_1 * target_2)
@@ -453,8 +453,6 @@ class LiveOctopus(Live, Indicators):
                                 self.print('Connection reestablished!')
                                 self.print('Getting Data...')
                                 self.data = self.get_historical_data()
-                                renko_object.build_history(prices=self.data.close.values, dates=self.data.index)
-                                prices = renko_object.get_renko_prices()
                         except:
                             self.print('Connection Failed! Trying to reconnect in 10 seconds...')
 

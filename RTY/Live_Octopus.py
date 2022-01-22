@@ -316,8 +316,6 @@ class LiveOctopus(Live, Indicators):
                                 self.print('Connection reestablished!')
                                 self.print('Getting Data...')
                                 self.data = self.get_historical_data()
-                                renko_object.build_history(prices=self.data.close.values, dates=self.data.index)
-                                prices = renko_object.get_renko_prices()
                         except:
                             self.print('Connection Failed! Trying to reconnect in 10 seconds...')
 
