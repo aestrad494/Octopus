@@ -125,9 +125,6 @@ class LiveOctopus(Live, Indicators):
             sent = False; exit_1 = False
             self.save_position()
             self.global_position = self.check_global_position()
-            last_ib = 0
-            #tempos = [60, 120]
-            #periods = [21, 89]
             prev = 3
             max_tempos = max([int(t) for t in tempos])
             max_periods = max([int(periods[i][4:]) for i in range(1, len(periods))])
@@ -338,5 +335,5 @@ if __name__ == '__main__':
     final = '2022-01-07'
     periods = ['close', 'SMA_21', 'SMA_89']
     tempos = ['540', '720']          #['180', '240'] ['540', '720']
-    live_octopus.run_strategy(contracts=2, stop=32, target_1=39, target_2=45, trailing=0.7,
+    live_octopus.run_strategy(contracts=2, stop=32, target_1=39, target_2=45, trailing=0.7, 
                                 periods=periods, tempos=tempos, init=init, final=final)
