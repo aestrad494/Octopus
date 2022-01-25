@@ -253,6 +253,9 @@ class LiveOctopus(Live, Indicators):
                             data_5 = self.resampler(self.data.iloc[-idx_back_3:], tempos[2][0]+'S', type='bars')
                             data_6 = self.resampler(self.data.iloc[-idx_back_3:], tempos[2][1]+'S', type='bars')
 
+                            print(data_1)
+                            print(data_2)
+
                             pers = periods[1:]
                             for per in pers:
                                 per = int(per[4:])
@@ -295,12 +298,10 @@ class LiveOctopus(Live, Indicators):
                             model_input_56 = list(data_5_eval.iloc[-1][features_5].values)
                             model_input_56.extend(list(data_6_eval.iloc[-1][features_6].values))
                             model_input_56 = np.reshape(model_input_56, [1, lags, n_features])
-
                             
-                            
-                            prediction_1 = 1 if model.predict(model_input_12)[0][0][0] > 0.9 else 0
-                            prediction_2 = 1 if model.predict(model_input_34)[0][0][0] > 0.9 else 0
-                            prediction_3 = 1 if model.predict(model_input_56)[0][0][0] > 0.9 else 0
+                            prediction_1 = 1 if model_1.predict(model_input_12)[0][0][0] > 0.9 else 0
+                            prediction_2 = 1 if model_2.predict(model_input_34)[0][0][0] > 0.9 else 0
+                            prediction_3 = 1 if model_3.predict(model_input_56)[0][0][0] > 0.9 else 0
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input_12, prediction_1))
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input_34, prediction_2))
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input_56, prediction_3))
