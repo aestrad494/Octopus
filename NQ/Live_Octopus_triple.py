@@ -288,7 +288,7 @@ class LiveOctopus(Live, Indicators):
                             print(list(data_3_eval.iloc[-1][features_3].values))
                             print(list(data_4_eval.iloc[-1][features_4].values))
                             print(list(data_5_eval.iloc[-1][features_5].values))
-                            print(list(data_6_eval.iloc[-1][features_3].values))
+                            print(list(data_6_eval.iloc[-1][features_6].values))
 
                             model_input_12 = list(data_1_eval.iloc[-1][features_1].values)
                             model_input_12.extend(list(data_2_eval.iloc[-1][features_2].values))
