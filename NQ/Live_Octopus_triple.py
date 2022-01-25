@@ -277,6 +277,10 @@ class LiveOctopus(Live, Indicators):
                             data_5_eval.columns = ['%s_%s'%(col,tempos[2][0]) for col in data_5_eval.columns]
                             data_6_eval.columns = ['%s_%s'%(col,tempos[2][1]) for col in data_6_eval.columns]
 
+                            print(list(data_1_eval.iloc[-1][features_1].values), 
+                                  list(data_3_eval.iloc[-1][features_3].values), 
+                                  list(data_5_eval.iloc[-1][features_5].values))
+
                             model_input_12 = list(data_1_eval.iloc[-1][features_1].values)
                             model_input_12.extend(list(data_2_eval.iloc[-1][features_2].values))
                             model_input_12 = np.reshape(model_input_12, [1, lags, n_features])
@@ -289,7 +293,7 @@ class LiveOctopus(Live, Indicators):
                             model_input_56.extend(list(data_6_eval.iloc[-1][features_6].values))
                             model_input_56 = np.reshape(model_input_56, [1, lags, n_features])
 
-                            print(model_input_12, model_input_34, model_input_56)
+                            
                             
                             prediction_1 = 1 if model.predict(model_input_12)[0][0][0] > 0.9 else 0
                             prediction_2 = 1 if model.predict(model_input_34)[0][0][0] > 0.9 else 0
