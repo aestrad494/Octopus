@@ -144,20 +144,20 @@ class LiveOctopus(Live, Indicators):
             idx_back_3 = int((max_periods+5)*max_tempos_3/5)
             # ana_time = int(max_tempos / 60)
 
-            features_1 = self.get_features(tempos[0], periods)
-            features_2 = self.get_features(tempos[1], periods)
-            features_3 = self.get_features(tempos[2], periods)
+            feat_1 = self.get_features(tempos[0], periods)
+            feat_2 = self.get_features(tempos[1], periods)
+            feat_3 = self.get_features(tempos[2], periods)
             # features = ['subcloseSMA_21_60', 'subcloseSMA_89_60', 'subSMA_21SMA_89_60',
             #             'price_slope_60', 's21_slope_60', 's89_slope_60', 
             #             'subcloseSMA_21_120', 'subcloseSMA_89_120', 'subSMA_21SMA_89_120',
             #             'price_slope_120', 's21_slope_120', 's89_slope_120']
-            n_features = len(features_1)
-            features_1 = features_1[:int(n_features/2)]
-            features_2 = features_1[int(n_features/2):]
-            features_3 = features_2[:int(n_features/2)]
-            features_4 = features_2[int(n_features/2):]
-            features_5 = features_3[:int(n_features/2)]
-            features_6 = features_3[int(n_features/2):]
+            n_features = len(feat_1)
+            features_1 = feat_1[:int(n_features/2)]
+            features_2 = feat_1[int(n_features/2):]
+            features_3 = feat_2[:int(n_features/2)]
+            features_4 = feat_2[int(n_features/2):]
+            features_5 = feat_3[:int(n_features/2)]
+            features_6 = feat_3[int(n_features/2):]
             lags = 1
             allow_entry = True
 
