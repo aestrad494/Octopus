@@ -241,10 +241,10 @@ class LiveOctopus(Live, Indicators):
                         minute = pd.to_datetime(self.hour).minute
                         second = pd.to_datetime(self.hour).second
                         #if pd.to_datetime(self.hour).minute % ana_time == 0 and (second == 0 or second == 5):
-                        # if ((hour in [0, 3, 6, 9, 12, 15, 18, 21] and minute in [36, 0]) or \
-                        #    (hour in [1, 4, 7, 10, 13, 16, 19, 22] and minute in [12, 48]) or \
-                        #    (hour in [2, 5, 8, 11, 14, 17, 20, 23] and minute in [24])) and (second == 0 or second == 5):
-                        if minute % 2 == 0 and (second == 0 or second == 5):
+                        if ((hour in [0, 3, 6, 9, 12, 15, 18, 21] and minute in [36, 0]) or \
+                           (hour in [1, 4, 7, 10, 13, 16, 19, 22] and minute in [12, 48]) or \
+                           (hour in [2, 5, 8, 11, 14, 17, 20, 23] and minute in [24])) and (second == 0 or second == 5):
+                        #if minute % 2 == 0 and (second == 0 or second == 5):
                             prediction_1 = 0; prediction_2 = 0; prediction_3 = 0
                             data_1 = self.resampler(self.data.iloc[-idx_back_1:], tempos[0][0]+'S', type='bars')
                             data_2 = self.resampler(self.data.iloc[-idx_back_1:], tempos[0][1]+'S', type='bars')
@@ -276,19 +276,6 @@ class LiveOctopus(Live, Indicators):
                             data_4_eval.columns = ['%s_%s'%(col,tempos[1][1]) for col in data_4_eval.columns]
                             data_5_eval.columns = ['%s_%s'%(col,tempos[2][0]) for col in data_5_eval.columns]
                             data_6_eval.columns = ['%s_%s'%(col,tempos[2][1]) for col in data_6_eval.columns]
-
-                            print('================')
-                            print(features_1)
-                            print(data_1_eval.columns)
-                            print(features_2)
-                            print(data_2_eval.columns)
-
-                            print(list(data_1_eval.iloc[-1][features_1].values))
-                            print(list(data_2_eval.iloc[-1][features_2].values)) 
-                            print(list(data_3_eval.iloc[-1][features_3].values))
-                            print(list(data_4_eval.iloc[-1][features_4].values))
-                            print(list(data_5_eval.iloc[-1][features_5].values))
-                            print(list(data_6_eval.iloc[-1][features_6].values))
 
                             model_input_12 = list(data_1_eval.iloc[-1][features_1].values)
                             model_input_12.extend(list(data_2_eval.iloc[-1][features_2].values))
