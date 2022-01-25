@@ -277,9 +277,12 @@ class LiveOctopus(Live, Indicators):
                             data_5_eval.columns = ['%s_%s'%(col,tempos[2][0]) for col in data_5_eval.columns]
                             data_6_eval.columns = ['%s_%s'%(col,tempos[2][1]) for col in data_6_eval.columns]
 
-                            print(list(data_1_eval.iloc[-1][features_1].values), 
-                                  list(data_3_eval.iloc[-1][features_3].values), 
-                                  list(data_5_eval.iloc[-1][features_5].values))
+                            print(list(data_1_eval.iloc[-1][features_1].values))
+                            print(list(data_2_eval.iloc[-1][features_2].values)) 
+                            print(list(data_3_eval.iloc[-1][features_3].values))
+                            print(list(data_4_eval.iloc[-1][features_4].values))
+                            print(list(data_5_eval.iloc[-1][features_5].values))
+                            print(list(data_6_eval.iloc[-1][features_3].values))
 
                             model_input_12 = list(data_1_eval.iloc[-1][features_1].values)
                             model_input_12.extend(list(data_2_eval.iloc[-1][features_2].values))
