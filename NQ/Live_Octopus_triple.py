@@ -241,9 +241,10 @@ class LiveOctopus(Live, Indicators):
                         minute = pd.to_datetime(self.hour).minute
                         second = pd.to_datetime(self.hour).second
                         #if pd.to_datetime(self.hour).minute % ana_time == 0 and (second == 0 or second == 5):
-                        if ((hour in [0, 3, 6, 9, 12, 15, 18, 21] and minute in [36, 0]) or \
-                           (hour in [1, 4, 7, 10, 13, 16, 19, 22] and minute in [12, 48]) or \
-                           (hour in [2, 5, 8, 11, 14, 17, 20, 23] and minute in [24])) and (second == 0 or second == 5):
+                        # if ((hour in [0, 3, 6, 9, 12, 15, 18, 21] and minute in [36, 0]) or \
+                        #    (hour in [1, 4, 7, 10, 13, 16, 19, 22] and minute in [12, 48]) or \
+                        #    (hour in [2, 5, 8, 11, 14, 17, 20, 23] and minute in [24])) and (second == 0 or second == 5):
+                        if minute % 2 == 0 and (second == 0 or second == 5):
                             prediction_1 = 0; prediction_2 = 0; prediction_3 = 0
                             data_1 = self.resampler(self.data.iloc[-idx_back_1:], tempos[0][0]+'S', type='bars')
                             data_2 = self.resampler(self.data.iloc[-idx_back_1:], tempos[0][1]+'S', type='bars')
