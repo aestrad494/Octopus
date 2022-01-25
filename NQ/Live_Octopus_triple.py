@@ -253,10 +253,6 @@ class LiveOctopus(Live, Indicators):
                             data_5 = self.resampler(self.data.iloc[-idx_back_3:], tempos[2][0]+'S', type='bars')
                             data_6 = self.resampler(self.data.iloc[-idx_back_3:], tempos[2][1]+'S', type='bars')
 
-                            print('================')
-                            print(data_1)
-                            print(data_2)
-
                             pers = periods[1:]
                             for per in pers:
                                 per = int(per[4:])
@@ -266,13 +262,17 @@ class LiveOctopus(Live, Indicators):
                                 data_4['SMA_%d'%per] = self.SMA(data_4.close, per)
                                 data_5['SMA_%d'%per] = self.SMA(data_5.close, per)
                                 data_6['SMA_%d'%per] = self.SMA(data_6.close, per)
-                            
+
                             data_1_eval = self.add_features(data_1)
                             data_2_eval = self.add_features(data_2)
                             data_3_eval = self.add_features(data_3)
                             data_4_eval = self.add_features(data_4)
                             data_5_eval = self.add_features(data_5)
                             data_6_eval = self.add_features(data_6)
+                            
+                            print('================')
+                            print(data_1_eval)
+                            print(data_2_eval)
 
                             data_1_eval.columns = ['%s_%s'%(col,tempos[0][0]) for col in data_1_eval.columns]
                             data_2_eval.columns = ['%s_%s'%(col,tempos[0][1]) for col in data_2_eval.columns]
