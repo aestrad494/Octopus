@@ -253,6 +253,7 @@ class LiveOctopus(Live, Indicators):
                             data_5 = self.resampler(self.data.iloc[-idx_back_3:], tempos[2][0]+'S', type='bars')
                             data_6 = self.resampler(self.data.iloc[-idx_back_3:], tempos[2][1]+'S', type='bars')
 
+                            print('================')
                             print(data_1)
                             print(data_2)
 
