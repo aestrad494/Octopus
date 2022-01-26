@@ -920,9 +920,7 @@ class Live():
         '''
         allow_margin = False
         order = MarketOrder(action, int(qty)) if ord_type=='market' else StopOrder(action, int(qty), price) if ord_type=='stop' else LimitOrder(action, int(qty), price)
-        print(order)
-        print(util.tree(self.ib.whatIfOrder(self.contract, order)))
-        try: self.ib.sleep(2); order_data = util.tree(self.ib.whatIfOrder(self.contract, order))['OrderState']
+        try: order_data = util.tree(self.ib.whatIfOrder(self.contract, order))['OrderState']
         except: self.ib.sleep(2); order_data = util.tree(self.ib.whatIfOrder(self.contract, order))['OrderState']
         # Get margin values
         net_liq = float(order_data['equityWithLoanBefore'])
