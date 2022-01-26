@@ -355,7 +355,7 @@ class LiveOctopus(Live, Indicators):
                         ## Stop 4
                         if self.check_pendings(ord_buy_sl_4) and not fourth and self.position > 0:   # Check if stop 4 is filled
                             self.exit_pending(ord_buy_sl_4, 'BUY', contracts/6, price_buy_in_4, time_buy_in, comm_buy_in_4, 'sl4')
-                            second = True; sent = False
+                            fourth = True; sent = False
                         ## Stop 5
                         if self.check_pendings(ord_buy_sl_5) and not fifth and self.position > 0:   # Check if stop 5 is filled
                             self.exit_pending(ord_buy_sl_5, 'BUY', contracts/6, price_buy_in_5, time_buy_in, comm_buy_in_5, 'sl5')
