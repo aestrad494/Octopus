@@ -367,7 +367,7 @@ class LiveOctopus(Live, Indicators):
                         
                         ## False Stop
                         ### Stop 1
-                        if not self.check_pendings(ord_buy_sl_1) and sl_buy_1 - self.data.iloc[-1].low >= 2 and not first and self.position > 0:
+                        '''if not self.check_pendings(ord_buy_sl_1) and sl_buy_1 - self.data.iloc[-1].low >= 2 and not first and self.position > 0:
                             self.exit_market(ord_buy_tp_1, 'BUY', contracts/6, price_buy_in_1, time_buy_in, comm_buy_in_1, 'fsl1')
                             first = True; sent = False
                         ### Stop 2
@@ -389,7 +389,7 @@ class LiveOctopus(Live, Indicators):
                         ### Stop 6
                         if not self.check_pendings(ord_buy_sl_6) and sl_buy_6 - self.data.iloc[-1].low >= 2 and not sixth and self.position > 0:
                             self.exit_market(ord_buy_tp_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'fsl6')
-                            sixth = True; sent = False
+                            sixth = True; sent = False'''
                         
                         # By target ==========
                         ## Target 1
