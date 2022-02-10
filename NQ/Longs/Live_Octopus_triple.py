@@ -113,7 +113,7 @@ class LiveOctopus(Live, Indicators):
         sample.close()
 
     def run_strategy(self, contracts, stop_1, target_1, target_2, trailing_1, stop_2, target_3, target_4, trailing_2, stop_3, target_5, target_6, trailing_3, periods, tempos, init, final):
-        self.print('%s %s | Octopus 2 Contracts Bot Turned On' % (self.date, self.hour))
+        self.print('%s %s | Octopus %d Contracts Bot Turned On' % (contracts, self.date, self.hour))
         self.print('%s %s | Running with stop_1: %d & target_1: %d & target_2: %d & trailing_1: %.2f & \
             stop_2: %d & target_3: %d & target_4: %d & trailing_2: %.2f & \
             stop_3: %d & target_5: %d & target_6: %d & trailing_3: %.2f '%
@@ -319,7 +319,7 @@ class LiveOctopus(Live, Indicators):
                                 price_buy_in_4, sl_buy_4, tp_buy_4, time_buy_in, comm_buy_in_4, profit_buy, ord_buy_sl_4, ord_buy_tp_4 = self.braket_market('BUY', contracts/6, stop_2, target_4, max_stop_2, entry_price=price_buy_in_3)     
                                 price_buy_in_5, sl_buy_5, tp_buy_5, time_buy_in, comm_buy_in_5, profit_buy, ord_buy_sl_5, ord_buy_tp_5 = self.braket_market('BUY', contracts/6, stop_3, target_5, max_stop_3)
                                 price_buy_in_6, sl_buy_6, tp_buy_6, time_buy_in, comm_buy_in_6, profit_buy, ord_buy_sl_6, ord_buy_tp_6 = self.braket_market('BUY', contracts/6, stop_3, target_6, max_stop_3, entry_price=price_buy_in_5)     
-                                if price_buy_in_1 > 0 and price_buy_in_2 > 0: sent = True
+                                if price_buy_in_1 > 0 and price_buy_in_2 > 0 and price_buy_in_3 > 0 and price_buy_in_4 > 0 and price_buy_in_5 > 0 and price_buy_in_6 > 0: sent = True
                                 tr_1 = self.x_round(trailing_1 * target_1)
                                 tr_2 = self.x_round(trailing_1 * target_2)
                                 tr_3 = self.x_round(trailing_2 * target_3)
