@@ -174,6 +174,7 @@ class LiveOctopus(Live, Indicators):
                 ini = init[i]
                 optimizer = Adam(learning_rate=learning_rate)
                 model = self.create_model(optimizer=optimizer, hl=layers, hu=hidden_units, dropout=dropout, input_dim=n_features)
+                print('model/octopus_model_%s_%s_%s_%s_%s.h5f'%(self.symbol, ini, final, temp[0], temp[1]))
                 model.load_weights('model/octopus_model_%s_%s_%s_%s_%s.h5f'%(self.symbol, ini, final, temp[0], temp[1]))
                 models.append(model)
             
