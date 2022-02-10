@@ -461,7 +461,7 @@ if __name__ == '__main__':
     port = 7497
     client = 152
 
-    live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus (demo)', temp='1 min', port=port, client=client, real=False)
+    live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus Shorts (demo)', temp='1 min', port=port, client=client, real=False)
     
     init = ['2022-01-28', '2022-01-07', '2021-11-12']
     final = '2022-02-04'
