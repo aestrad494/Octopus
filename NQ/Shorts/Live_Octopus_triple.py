@@ -459,7 +459,7 @@ class LiveOctopus(Live, Indicators):
 if __name__ == '__main__':
     symbol = 'NQ'
     port = 7497
-    client = 152
+    client = 153
 
     live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus Shorts (demo)', temp='1 min', port=port, client=client, real=False)
     
