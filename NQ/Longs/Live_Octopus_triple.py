@@ -113,7 +113,7 @@ class LiveOctopus(Live, Indicators):
         sample.close()
 
     def run_strategy(self, contracts, stop_1, target_1, target_2, trailing_1, stop_2, target_3, target_4, trailing_2, stop_3, target_5, target_6, trailing_3, periods, tempos, init, final):
-        self.print('%s %s | Octopus %d Contracts Bot Turned On' % (contracts, self.date, self.hour))
+        self.print('%s %s | Octopus %d Contracts Bot Turned On' % (self.date, self.hour, contracts))
         self.print('%s %s | Running with stop_1: %d & target_1: %d & target_2: %d & trailing_1: %.2f & \
             stop_2: %d & target_3: %d & target_4: %d & trailing_2: %.2f & \
             stop_3: %d & target_5: %d & target_6: %d & trailing_3: %.2f '%
