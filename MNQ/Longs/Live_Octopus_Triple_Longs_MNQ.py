@@ -112,21 +112,21 @@ class LiveOctopus(Live, Indicators):
         print(message)
         sample.close()
 
-    def run_strategy(self, contracts, stop_1, target_1, target_2, trailing_1, stop_2, target_3, target_4, trailing_2, stop_3, target_5, target_6, trailing_3, periods, tempos, init, final):
+    def run_strategy(self, contracts, stop_1, target_1, trailing_1, stop_2, target_2, trailing_2, stop_3, target_3, trailing_3, periods, tempos, init, final):
         self.print('%s %s | Octopus %d Contracts Bot Turned On' % (self.date, self.hour, contracts))
-        self.print('%s %s | Running with stop_1: %d & target_1: %d & target_2: %d & trailing_1: %.2f & \
-            stop_2: %d & target_3: %d & target_4: %d & trailing_2: %.2f & \
-            stop_3: %d & target_5: %d & target_6: %d & trailing_3: %.2f '%
-                      (self.date, self.hour, stop_1, target_1, target_2, trailing_1,
-                                            stop_2, target_3, target_4, trailing_2,
-                                            stop_3, target_5, target_6, trailing_3))
+        self.print('%s %s | Running with stop_1: %d & target_1: %d & trailing_1: %.2f & \
+            stop_2: %d & target_2: %d & trailing_2: %.2f & \
+            stop_3: %d & target_3: %d & trailing_3: %.2f '%
+                      (self.date, self.hour, stop_1, target_1, trailing_1,
+                                            stop_2, target_2, trailing_2,
+                                            stop_3, target_3, trailing_3))
         # Check if operable schedule
         self.operable_schedule()
 
         if self.operable:
             # Defining Variables
             prediction_1 = 0; prediction_2 = 0; prediction_3 = 0
-            sent = False; first = False; second = False; third = False; fourth = False; fifth = False; sixth = False
+            sent = False; first = False; second = False; third = False
             self.save_position()
             self.global_position = self.check_global_position()
             prev = 3
@@ -194,16 +194,6 @@ class LiveOctopus(Live, Indicators):
             #model.load_weights('model/octopus_model_%s.h5f'%self.symbol)
             model.load_weights('model/octopus_model_%s_%s_%s_%s_%s.h5f'%(self.symbol, init, final, tempos[0], tempos[1]))
             print('model loaded!')'''
-
-            #target condition
-            if target_1 > target_2: target_2 = target_1
-            if target_1 == target_2: target_2 += 1
-
-            if target_3 > target_4: target_4 = target_3
-            if target_3 == target_4: target_4 += 1
-
-            if target_5 > target_6: target_6 = target_5
-            if target_5 == target_6: target_6 += 1
 
             # Getting Historical Data to get renko bars
             self.print('Downloading Historical %s Data...'%self.symbol)
@@ -316,17 +306,11 @@ class LiveOctopus(Live, Indicators):
                                 price_buy_in_1, sl_buy_1, tp_buy_1, time_buy_in, comm_buy_in_1, profit_buy, ord_buy_sl_1, ord_buy_tp_1 = self.braket_market('BUY', contracts/6, stop_1, target_1, max_stop_1)
                                 price_buy_in_2, sl_buy_2, tp_buy_2, time_buy_in, comm_buy_in_2, profit_buy, ord_buy_sl_2, ord_buy_tp_2 = self.braket_market('BUY', contracts/6, stop_1, target_2, max_stop_1, entry_price=price_buy_in_1)     
                                 price_buy_in_3, sl_buy_3, tp_buy_3, time_buy_in, comm_buy_in_3, profit_buy, ord_buy_sl_3, ord_buy_tp_3 = self.braket_market('BUY', contracts/6, stop_2, target_3, max_stop_2)
-                                price_buy_in_4, sl_buy_4, tp_buy_4, time_buy_in, comm_buy_in_4, profit_buy, ord_buy_sl_4, ord_buy_tp_4 = self.braket_market('BUY', contracts/6, stop_2, target_4, max_stop_2, entry_price=price_buy_in_3)     
-                                price_buy_in_5, sl_buy_5, tp_buy_5, time_buy_in, comm_buy_in_5, profit_buy, ord_buy_sl_5, ord_buy_tp_5 = self.braket_market('BUY', contracts/6, stop_3, target_5, max_stop_3)
-                                price_buy_in_6, sl_buy_6, tp_buy_6, time_buy_in, comm_buy_in_6, profit_buy, ord_buy_sl_6, ord_buy_tp_6 = self.braket_market('BUY', contracts/6, stop_3, target_6, max_stop_3, entry_price=price_buy_in_5)     
-                                if price_buy_in_1 > 0 and price_buy_in_2 > 0 and price_buy_in_3 > 0 and price_buy_in_4 > 0 and price_buy_in_5 > 0 and price_buy_in_6 > 0: sent = True
+                                if price_buy_in_1 > 0 and price_buy_in_2 > 0 and price_buy_in_3 > 0 : sent = True
                                 tr_1 = self.x_round(trailing_1 * target_1)
                                 tr_2 = self.x_round(trailing_1 * target_2)
                                 tr_3 = self.x_round(trailing_2 * target_3)
-                                tr_4 = self.x_round(trailing_2 * target_4)
-                                tr_5 = self.x_round(trailing_3 * target_5)
-                                tr_6 = self.x_round(trailing_3 * target_6)
-                                first = False; second = False; third = False; fourth = False; fifth = False; sixth = False
+                                first = False; second = False; third = False
 
                     # Check for Exit
                     if self.position > 0:
@@ -334,9 +318,6 @@ class LiveOctopus(Live, Indicators):
                             if not first:  sl_buy_1 = self.trailing_stop(price_in=price_buy_in_1, trailing=tr_1, sl=sl_buy_1, order=ord_buy_sl_1)
                             if not second: sl_buy_2 = self.trailing_stop(price_in=price_buy_in_1, trailing=tr_2, sl=sl_buy_2, order=ord_buy_sl_2)
                             if not third:  sl_buy_3 = self.trailing_stop(price_in=price_buy_in_3, trailing=tr_3, sl=sl_buy_3, order=ord_buy_sl_3)
-                            if not fourth: sl_buy_4 = self.trailing_stop(price_in=price_buy_in_3, trailing=tr_4, sl=sl_buy_4, order=ord_buy_sl_4)
-                            if not fifth:  sl_buy_5 = self.trailing_stop(price_in=price_buy_in_5, trailing=tr_5, sl=sl_buy_5, order=ord_buy_sl_5)
-                            if not sixth:  sl_buy_6 = self.trailing_stop(price_in=price_buy_in_5, trailing=tr_6, sl=sl_buy_6, order=ord_buy_sl_6)
                         except: self.print('Trying to apply trailing stop... Order has been Filled!')
 
                         # By stop ==========
@@ -352,18 +333,6 @@ class LiveOctopus(Live, Indicators):
                         if self.check_pendings(ord_buy_sl_3) and not third and self.position > 0:   # Check if stop 3 is filled
                             self.exit_pending(ord_buy_sl_3, 'BUY', contracts/6, price_buy_in_3, time_buy_in, comm_buy_in_3, 'sl3')
                             third = True; sent = False
-                        ## Stop 4
-                        if self.check_pendings(ord_buy_sl_4) and not fourth and self.position > 0:   # Check if stop 4 is filled
-                            self.exit_pending(ord_buy_sl_4, 'BUY', contracts/6, price_buy_in_4, time_buy_in, comm_buy_in_4, 'sl4')
-                            fourth = True; sent = False
-                        ## Stop 5
-                        if self.check_pendings(ord_buy_sl_5) and not fifth and self.position > 0:   # Check if stop 5 is filled
-                            self.exit_pending(ord_buy_sl_5, 'BUY', contracts/6, price_buy_in_5, time_buy_in, comm_buy_in_5, 'sl5')
-                            fifth = True; sent = False
-                        ## Stop 6
-                        if self.check_pendings(ord_buy_sl_6) and not sixth and self.position > 0:   # Check if stop 6 is filled
-                            self.exit_pending(ord_buy_sl_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'sl6')
-                            sixth = True; sent = False
                         
                         ## False Stop
                         ### Stop 1
@@ -377,19 +346,7 @@ class LiveOctopus(Live, Indicators):
                         ### Stop 3
                         if not self.check_pendings(ord_buy_sl_3) and sl_buy_3 - self.data.iloc[-1].low >= 2 and not third and self.position > 0:
                             self.exit_market(ord_buy_tp_3, 'BUY', contracts/6, price_buy_in_3, time_buy_in, comm_buy_in_3, 'fsl3')
-                            third = True; sent = False
-                        ### Stop 4
-                        if not self.check_pendings(ord_buy_sl_4) and sl_buy_4 - self.data.iloc[-1].low >= 2 and not fourth and self.position > 0:
-                            self.exit_market(ord_buy_tp_4, 'BUY', contracts/6, price_buy_in_4, time_buy_in, comm_buy_in_4, 'fsl4')
-                            fourth = True; sent = False
-                        ### Stop 5
-                        if not self.check_pendings(ord_buy_sl_5) and sl_buy_5 - self.data.iloc[-1].low >= 2 and not fifth and self.position > 0:
-                            self.exit_market(ord_buy_tp_5, 'BUY', contracts/6, price_buy_in_5, time_buy_in, comm_buy_in_5, 'fsl5')
-                            fifth = True; sent = False
-                        ### Stop 6
-                        if not self.check_pendings(ord_buy_sl_6) and sl_buy_6 - self.data.iloc[-1].low >= 2 and not sixth and self.position > 0:
-                            self.exit_market(ord_buy_tp_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'fsl6')
-                            sixth = True; sent = False'''
+                            third = True; sent = False'''
                         
                         # By target ==========
                         ## Target 1
@@ -404,18 +361,6 @@ class LiveOctopus(Live, Indicators):
                         if self.check_pendings(ord_buy_tp_3) and not third and self.position > 0:    # Check if target 3 is filled
                             self.exit_pending(ord_buy_tp_3, 'BUY', contracts/6, price_buy_in_3, time_buy_in, comm_buy_in_3, 'tp3')
                             third = True; sent = False
-                        ## Target 4
-                        if self.check_pendings(ord_buy_tp_4) and not fourth and self.position > 0:    # Check if target 4 is filled
-                            self.exit_pending(ord_buy_tp_4, 'BUY', contracts/6, price_buy_in_4, time_buy_in, comm_buy_in_4, 'tp4')
-                            fourth = True; sent = False
-                        ## Target 5
-                        if self.check_pendings(ord_buy_tp_5) and not fifth and self.position > 0:    # Check if target 5 is filled
-                            self.exit_pending(ord_buy_tp_5, 'BUY', contracts/6, price_buy_in_5, time_buy_in, comm_buy_in_5, 'tp5')
-                            fifth = True; sent = False
-                        ## Target 6
-                        if self.check_pendings(ord_buy_tp_6) and not sixth and self.position > 0:    # Check if target 6 is filled
-                            self.exit_pending(ord_buy_tp_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'tp6')
-                            sixth = True; sent = False
 
                         # Exit on friday
                         if self.weekday == 4 and pd.to_datetime(self.hour).time() >= pd.to_datetime('16:57:00').time() and self.position > 0:
@@ -428,23 +373,6 @@ class LiveOctopus(Live, Indicators):
                             if not third:
                                 self.exit_market(ord_buy_tp_3, 'BUY', contracts/6, price_buy_in_3, time_buy_in, comm_buy_in_3, 'fri 3')
                                 third = True; sent = False
-                            if not fourth:
-                                self.exit_market(ord_buy_tp_4, 'BUY', contracts/6, price_buy_in_4, time_buy_in, comm_buy_in_4, 'fri 4')
-                                fourth = True; sent = False
-                            if not fifth:
-                                self.exit_market(ord_buy_tp_5, 'BUY', contracts/6, price_buy_in_5, time_buy_in, comm_buy_in_5, 'fri 5')
-                                fifth = True; sent = False
-                            if not sixth:
-                                self.exit_market(ord_buy_tp_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'fri 6')
-                                sixth = True; sent = False
-
-                            '''if self.position == contracts:
-                                self.exit_market(ord_buy_tp_1, 'BUY', contracts/6, price_buy_in_1, time_buy_in, comm_buy_in_1, 'fri')
-                                self.exit_market(ord_buy_tp_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'fri')
-                                sent = False
-                            else:
-                                self.exit_market(ord_buy_tp_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'fri')
-                                sent = False'''
 
                 else:
                     if not self.interrumption:
@@ -477,5 +405,5 @@ if __name__ == '__main__':
     periods = ['close', 'SMA_21', 'SMA_89']
     #tempos = ['540', '720']          #['180', '240'] ['540', '720']
     tempos = [['60', '120'], ['180', '240'], ['540', '720']]
-    live_octopus.run_strategy(contracts=6, stop_1=18, target_1=16, target_2=21, trailing_1=0.8, stop_2=60, target_3=60, target_4=80, trailing_2=0.5,
-                          stop_3=68, target_5=68, target_6=79, trailing_3=0.9, periods=periods, tempos=tempos, init=init, final=final)
+    live_octopus.run_strategy(contracts=6, stop_1=18, target_1=16, trailing_1=0.8, stop_2=60, target_2=60, trailing_2=0.5,
+                          stop_3=68, target_3=68, trailing_3=0.9, periods=periods, tempos=tempos, init=init, final=final)
