@@ -289,6 +289,7 @@ class LiveOctopus(Live, Indicators):
                             model_input_56.extend(list(data_6_eval.iloc[-1][features_6].values))
                             model_input_56 = np.reshape(model_input_56, [1, lags, n_features])
                             
+                            print(model_1.predict(model_input_12))   ################################
                             prediction_1 = 1 if model_1.predict(model_input_12)[0][0][0] > 0.9 else 0
                             prediction_2 = 1 if model_2.predict(model_input_34)[0][0][0] > 0.9 else 0
                             prediction_3 = 1 if model_3.predict(model_input_56)[0][0][0] > 0.9 else 0
