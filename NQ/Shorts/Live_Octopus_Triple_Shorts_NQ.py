@@ -471,8 +471,8 @@ if __name__ == '__main__':
     #tempos = ['540', '720']          #['180', '240'] ['540', '720']
     tempos = [['60', '120'], ['180', '240'], ['540', '720']]
     live_octopus.run_strategy(contracts=6, stop_1=15, target_1=18, target_2=30, trailing_1=0.7, stop_2=52, target_3=28, target_4=30, trailing_2=0.4,
-                          stop_3=57, target_5=78, target_6=106, trailing_3=0.5, periods=periods, tempos=tempos, init=init, final=final)
+                          stop_3=91.25, target_5=79, target_6=122.5, trailing_3=0.7, periods=periods, tempos=tempos, init=init, final=final)
                 
     # 15.0	18.0	30.0	0.7
     # 52.0	28.0	30.0	0.4
-    # 
+    # 91.25 79.00   122.50  0.7
