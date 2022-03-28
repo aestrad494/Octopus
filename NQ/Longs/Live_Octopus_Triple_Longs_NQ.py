@@ -472,15 +472,15 @@ if __name__ == '__main__':
 
     live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus Longs (demo)', temp='1 min', port=port, client=client, real=False)
     
-    init = ['2022-03-11', '2022-02-18', '2021-12-24']
-    final = '2022-03-18'  #'2022-03-18'
+    init = ['2022-03-18', '2022-02-25', '2021-12-31']
+    final = '2022-03-25'
 
     periods = ['close', 'SMA_21', 'SMA_89']
     #tempos = ['540', '720']          #['180', '240'] ['540', '720']
     tempos = [['60', '120'], ['180', '240'], ['540', '720']]
-    live_octopus.run_strategy(contracts=6, stop_1=18, target_1=13, target_2=23, trailing_1=0.9, stop_2=53, target_3=28, target_4=82, trailing_2=0.7,
-                          stop_3=81, target_5=31, target_6=61, trailing_3=0.4, periods=periods, tempos=tempos, init=init, final=final)
+    live_octopus.run_strategy(contracts=6, stop_1=13, target_1=15, target_2=7, trailing_1=0.8, stop_2=39, target_3=18, target_4=72, trailing_2=0.9,
+                          stop_3=31, target_5=93, target_6=78, trailing_3=0.7, periods=periods, tempos=tempos, init=init, final=final)
 
-    # 18.0	13.0	23.0	0.9
-    # 53.0	28.0	82.0	0.7
-    # 81.0	31.0	61.0	0.4
+    # 13.0	15.0	7.0	    0.8	
+    # 39.0	18.0	72.0	0.9
+    # 31.0	93.0	78.0	0.7
