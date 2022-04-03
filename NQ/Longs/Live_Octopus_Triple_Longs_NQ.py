@@ -476,7 +476,7 @@ if __name__ == '__main__':
     final = '2022-03-25'
 
     periods = ['close', 'SMA_21', 'SMA_89']
-    #tempos = ['540', '720']          #['180', '240'] ['540', '720']
+    #tempos = ['540', '720']          #['180', '240'] ['540', '720'] #
     tempos = [['60', '120'], ['180', '240'], ['540', '720']]
 
     live_octopus.run_strategy(contracts=6, stop_1=12, target_1=9, target_2=11, trailing_1=0.9, stop_2=35, target_3=29, target_4=66, trailing_2=0.6,
