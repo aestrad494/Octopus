@@ -1,18 +1,25 @@
-2022-02-09 09:58:46.990704: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-02-09 09:58:46.990760: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-2022-02-09 09:58:51.163450: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
-2022-02-09 09:58:51.166374: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-02-09 09:58:51.166467: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
-2022-02-09 09:58:51.166515: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (ib): /proc/driver/nvidia/version does not exist
-2022-02-09 09:58:51.167075: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+2022-03-31 23:36:06.487582: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-03-31 23:36:06.487636: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2022-03-31 23:36:08.874918: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-03-31 23:36:08.874970: W tensorflow/stream_executor/cuda/cuda_driver.cc:269] failed call to cuInit: UNKNOWN ERROR (303)
+2022-03-31 23:36:08.875003: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (ib): /proc/driver/nvidia/version does not exist
+2022-03-31 23:36:08.875383: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-02-09 09:58:51.167482: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
-2022-02-09 10:12:02.045623: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
-2022-02-09 10:12:02.059926: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2294605000 Hz
+ERROR:ib_insync.wrapper:Error 201, reqId 82: Order rejected - reason:No such order: order done
+ERROR:ib_insync.wrapper:Error 201, reqId 79: Order rejected - reason:No such order
+2022-04-01 00:00:08.077472: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:185] None of the MLIR Optimization Passes are enabled (registered 2)
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_input'), name='dense_input', description="created by layer 'dense_input'"), but it was called on an input with incompatible shape (None, 1, 12).
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_input'), name='dense_input', description="created by layer 'dense_input'"), but it was called on an input with incompatible shape (None, 1, 12).
+WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_6_input'), name='dense_6_input', description="created by layer 'dense_6_input'"), but it was called on an input with incompatible shape (None, 1, 12).
+WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_6_input'), name='dense_6_input', description="created by layer 'dense_6_input'"), but it was called on an input with incompatible shape (None, 1, 12).
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_10_input'), name='dense_10_input', description="created by layer 'dense_10_input'"), but it was called on an input with incompatible shape (None, 1, 12).
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_10_input'), name='dense_10_input', description="created by layer 'dense_10_input'"), but it was called on an input with incompatible shape (None, 1, 12).
-WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_16_input'), name='dense_16_input', description="created by layer 'dense_16_input'"), but it was called on an input with incompatible shape (None, 1, 12).
-WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_16_input'), name='dense_16_input', description="created by layer 'dense_16_input'"), but it was called on an input with incompatible shape (None, 1, 12).
-QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-andres'
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
+ERROR:ib_insync.wrapper:Error 1102, reqId -1: Connectivity between IB and Trader Workstation has been restored - data maintained.
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+ERROR:ib_insync.wrapper:Error 104, reqId 94: Cannot modify a filled order.
+ERROR:ib_insync.wrapper:Error 104, reqId 98: Cannot modify a filled order.
+ERROR:ib_insync.wrapper:Error 104, reqId 118: Cannot modify a filled order.
