@@ -174,6 +174,7 @@ class LiveOctopus(Live, Indicators):
                 ini = init[i]
                 optimizer = Adam(learning_rate=learning_rate)
                 model = self.create_model(optimizer=optimizer, hl=layers, hu=hidden_units, dropout=dropout, input_dim=n_features)
+                print('model/octopus_model_%s_%s_%s_%s_%s.h5f'%(self.symbol, ini, final, temp[0], temp[1]))
                 model.load_weights('model/octopus_model_%s_%s_%s_%s_%s.h5f'%(self.symbol, ini, final, temp[0], temp[1]))
                 models.append(model)
             
@@ -289,7 +290,6 @@ class LiveOctopus(Live, Indicators):
                             model_input_56.extend(list(data_6_eval.iloc[-1][features_6].values))
                             model_input_56 = np.reshape(model_input_56, [1, lags, n_features])
                             
-                            print(model_1.predict(model_input_12))   ################################
                             prediction_1 = 1 if model_1.predict(model_input_12)[0][0][0] > 0.9 else 0
                             prediction_2 = 1 if model_2.predict(model_input_34)[0][0][0] > 0.9 else 0
                             prediction_3 = 1 if model_3.predict(model_input_56)[0][0][0] > 0.9 else 0
@@ -309,18 +309,18 @@ class LiveOctopus(Live, Indicators):
                             
                         # Entry conditions
                         if not (self.weekday == 4 and pd.to_datetime(self.hour).time() > pd.to_datetime('16:00:00').time()):
-                            ## Buys
+                            ## Sells
                             if not sent and prediction_1 > 0 and prediction_2 > 0 and prediction_3 > 0 and allow_entry:
                                 max_stop_1 = stop_1*self.leverage*contracts/3
                                 max_stop_2 = stop_2*self.leverage*contracts/3
                                 max_stop_3 = stop_3*self.leverage*contracts/3
-                                price_buy_in_1, sl_buy_1, tp_buy_1, time_buy_in, comm_buy_in_1, profit_buy, ord_buy_sl_1, ord_buy_tp_1 = self.braket_market('BUY', contracts/6, stop_1, target_1, max_stop_1)
-                                price_buy_in_2, sl_buy_2, tp_buy_2, time_buy_in, comm_buy_in_2, profit_buy, ord_buy_sl_2, ord_buy_tp_2 = self.braket_market('BUY', contracts/6, stop_1, target_2, max_stop_1, entry_price=price_buy_in_1)     
-                                price_buy_in_3, sl_buy_3, tp_buy_3, time_buy_in, comm_buy_in_3, profit_buy, ord_buy_sl_3, ord_buy_tp_3 = self.braket_market('BUY', contracts/6, stop_2, target_3, max_stop_2)
-                                price_buy_in_4, sl_buy_4, tp_buy_4, time_buy_in, comm_buy_in_4, profit_buy, ord_buy_sl_4, ord_buy_tp_4 = self.braket_market('BUY', contracts/6, stop_2, target_4, max_stop_2, entry_price=price_buy_in_3)     
-                                price_buy_in_5, sl_buy_5, tp_buy_5, time_buy_in, comm_buy_in_5, profit_buy, ord_buy_sl_5, ord_buy_tp_5 = self.braket_market('BUY', contracts/6, stop_3, target_5, max_stop_3)
-                                price_buy_in_6, sl_buy_6, tp_buy_6, time_buy_in, comm_buy_in_6, profit_buy, ord_buy_sl_6, ord_buy_tp_6 = self.braket_market('BUY', contracts/6, stop_3, target_6, max_stop_3, entry_price=price_buy_in_5)     
-                                if price_buy_in_1 > 0 and price_buy_in_2 > 0 and price_buy_in_3 > 0 and price_buy_in_4 > 0 and price_buy_in_5 > 0 and price_buy_in_6 > 0: sent = True
+                                price_sell_in_1, sl_sell_1, tp_sell_1, time_sell_in, comm_sell_in_1, profit_sell, ord_sell_sl_1, ord_sell_tp_1 = self.braket_market('SELL', contracts/6, stop_1, target_1, max_stop_1)
+                                price_sell_in_2, sl_sell_2, tp_sell_2, time_sell_in, comm_sell_in_2, profit_sell, ord_sell_sl_2, ord_sell_tp_2 = self.braket_market('SELL', contracts/6, stop_1, target_2, max_stop_1, entry_price=price_sell_in_1)     
+                                price_sell_in_3, sl_sell_3, tp_sell_3, time_sell_in, comm_sell_in_3, profit_sell, ord_sell_sl_3, ord_sell_tp_3 = self.braket_market('SELL', contracts/6, stop_2, target_3, max_stop_2)
+                                price_sell_in_4, sl_sell_4, tp_sell_4, time_sell_in, comm_sell_in_4, profit_sell, ord_sell_sl_4, ord_sell_tp_4 = self.braket_market('SELL', contracts/6, stop_2, target_4, max_stop_2, entry_price=price_sell_in_3)     
+                                price_sell_in_5, sl_sell_5, tp_sell_5, time_sell_in, comm_sell_in_5, profit_sell, ord_sell_sl_5, ord_sell_tp_5 = self.braket_market('SELL', contracts/6, stop_3, target_5, max_stop_3)
+                                price_sell_in_6, sl_sell_6, tp_sell_6, time_sell_in, comm_sell_in_6, profit_sell, ord_sell_sl_6, ord_sell_tp_6 = self.braket_market('SELL', contracts/6, stop_3, target_6, max_stop_3, entry_price=price_sell_in_5)     
+                                if price_sell_in_1 > 0 and price_sell_in_2 > 0 and price_sell_in_3 > 0 and price_sell_in_4 > 0 and price_sell_in_5 > 0 and price_sell_in_6 > 0: sent = True
                                 tr_1 = self.x_round(trailing_1 * target_1)
                                 tr_2 = self.x_round(trailing_1 * target_2)
                                 tr_3 = self.x_round(trailing_2 * target_3)
@@ -330,122 +330,114 @@ class LiveOctopus(Live, Indicators):
                                 first = False; second = False; third = False; fourth = False; fifth = False; sixth = False
 
                     # Check for Exit
-                    if self.position > 0:
+                    if self.position < 0:
                         try:
-                            if not first:  sl_buy_1 = self.trailing_stop(price_in=price_buy_in_1, trailing=tr_1, sl=sl_buy_1, order=ord_buy_sl_1)
-                            if not second: sl_buy_2 = self.trailing_stop(price_in=price_buy_in_1, trailing=tr_2, sl=sl_buy_2, order=ord_buy_sl_2)
-                            if not third:  sl_buy_3 = self.trailing_stop(price_in=price_buy_in_3, trailing=tr_3, sl=sl_buy_3, order=ord_buy_sl_3)
-                            if not fourth: sl_buy_4 = self.trailing_stop(price_in=price_buy_in_3, trailing=tr_4, sl=sl_buy_4, order=ord_buy_sl_4)
-                            if not fifth:  sl_buy_5 = self.trailing_stop(price_in=price_buy_in_5, trailing=tr_5, sl=sl_buy_5, order=ord_buy_sl_5)
-                            if not sixth:  sl_buy_6 = self.trailing_stop(price_in=price_buy_in_5, trailing=tr_6, sl=sl_buy_6, order=ord_buy_sl_6)
+                            if not first:  sl_sell_1 = self.trailing_stop(price_in=price_sell_in_1, trailing=tr_1, sl=sl_sell_1, order=ord_sell_sl_1)
+                            if not second: sl_sell_2 = self.trailing_stop(price_in=price_sell_in_1, trailing=tr_2, sl=sl_sell_2, order=ord_sell_sl_2)
+                            if not third:  sl_sell_3 = self.trailing_stop(price_in=price_sell_in_3, trailing=tr_3, sl=sl_sell_3, order=ord_sell_sl_3)
+                            if not fourth: sl_sell_4 = self.trailing_stop(price_in=price_sell_in_3, trailing=tr_4, sl=sl_sell_4, order=ord_sell_sl_4)
+                            if not fifth:  sl_sell_5 = self.trailing_stop(price_in=price_sell_in_5, trailing=tr_5, sl=sl_sell_5, order=ord_sell_sl_5)
+                            if not sixth:  sl_sell_6 = self.trailing_stop(price_in=price_sell_in_5, trailing=tr_6, sl=sl_sell_6, order=ord_sell_sl_6)
                         except: self.print('Trying to apply trailing stop... Order has been Filled!')
 
                         # By stop ==========
                         ## Stop 1
-                        if self.check_pendings(ord_buy_sl_1) and not first and self.position > 0:   # Check if stop 1 is filled
-                            self.exit_pending(ord_buy_sl_1, 'BUY', contracts/6, price_buy_in_1, time_buy_in, comm_buy_in_1, 'sl1')
+                        if self.check_pendings(ord_sell_sl_1) and not first and self.position < 0:   # Check if stop 1 is filled
+                            self.exit_pending(ord_sell_sl_1, 'SELL', contracts/6, price_sell_in_1, time_sell_in, comm_sell_in_1, 'sl1')
                             first = True; sent = False
                         ## Stop 2
-                        if self.check_pendings(ord_buy_sl_2) and not second and self.position > 0:   # Check if stop 2 is filled
-                            self.exit_pending(ord_buy_sl_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'sl2')
+                        if self.check_pendings(ord_sell_sl_2) and not second and self.position < 0:   # Check if stop 2 is filled
+                            self.exit_pending(ord_sell_sl_2, 'SELL', contracts/6, price_sell_in_2, time_sell_in, comm_sell_in_2, 'sl2')
                             second = True; sent = False
                         ## Stop 3
-                        if self.check_pendings(ord_buy_sl_3) and not third and self.position > 0:   # Check if stop 3 is filled
-                            self.exit_pending(ord_buy_sl_3, 'BUY', contracts/6, price_buy_in_3, time_buy_in, comm_buy_in_3, 'sl3')
+                        if self.check_pendings(ord_sell_sl_3) and not third and self.position < 0:   # Check if stop 3 is filled
+                            self.exit_pending(ord_sell_sl_3, 'SELL', contracts/6, price_sell_in_3, time_sell_in, comm_sell_in_3, 'sl3')
                             third = True; sent = False
                         ## Stop 4
-                        if self.check_pendings(ord_buy_sl_4) and not fourth and self.position > 0:   # Check if stop 4 is filled
-                            self.exit_pending(ord_buy_sl_4, 'BUY', contracts/6, price_buy_in_4, time_buy_in, comm_buy_in_4, 'sl4')
+                        if self.check_pendings(ord_sell_sl_4) and not fourth and self.position < 0:   # Check if stop 4 is filled
+                            self.exit_pending(ord_sell_sl_4, 'SELL', contracts/6, price_sell_in_4, time_sell_in, comm_sell_in_4, 'sl4')
                             fourth = True; sent = False
                         ## Stop 5
-                        if self.check_pendings(ord_buy_sl_5) and not fifth and self.position > 0:   # Check if stop 5 is filled
-                            self.exit_pending(ord_buy_sl_5, 'BUY', contracts/6, price_buy_in_5, time_buy_in, comm_buy_in_5, 'sl5')
+                        if self.check_pendings(ord_sell_sl_5) and not fifth and self.position < 0:   # Check if stop 5 is filled
+                            self.exit_pending(ord_sell_sl_5, 'SELL', contracts/6, price_sell_in_5, time_sell_in, comm_sell_in_5, 'sl5')
                             fifth = True; sent = False
                         ## Stop 6
-                        if self.check_pendings(ord_buy_sl_6) and not sixth and self.position > 0:   # Check if stop 6 is filled
-                            self.exit_pending(ord_buy_sl_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'sl6')
+                        if self.check_pendings(ord_sell_sl_6) and not sixth and self.position < 0:   # Check if stop 6 is filled
+                            self.exit_pending(ord_sell_sl_6, 'SELL', contracts/6, price_sell_in_6, time_sell_in, comm_sell_in_6, 'sl6')
                             sixth = True; sent = False
                         
                         ## False Stop
                         ### Stop 1
-                        '''if not self.check_pendings(ord_buy_sl_1) and sl_buy_1 - self.data.iloc[-1].low >= 2 and not first and self.position > 0:
-                            self.exit_market(ord_buy_tp_1, 'BUY', contracts/6, price_buy_in_1, time_buy_in, comm_buy_in_1, 'fsl1')
+                        '''if not self.check_pendings(ord_sell_sl_1) and self.data.iloc[-1].high - sl_sell_1 >= 2 and not first and self.position < 0:
+                            self.exit_market(ord_sell_tp_1, 'SELL', contracts/6, price_sell_in_1, time_sell_in, comm_sell_in_1, 'fsl1')
                             first = True; sent = False
                         ### Stop 2
-                        if not self.check_pendings(ord_buy_sl_2) and sl_buy_2 - self.data.iloc[-1].low >= 2 and not second and self.position > 0:
-                            self.exit_market(ord_buy_tp_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'fsl2')
+                        if not self.check_pendings(ord_sell_sl_2) and self.data.iloc[-1].high - sl_sell_2 >= 2 and not second and self.position < 0:
+                            self.exit_market(ord_sell_tp_2, 'SELL', contracts/6, price_sell_in_2, time_sell_in, comm_sell_in_2, 'fsl2')
                             second = True; sent = False
                         ### Stop 3
-                        if not self.check_pendings(ord_buy_sl_3) and sl_buy_3 - self.data.iloc[-1].low >= 2 and not third and self.position > 0:
-                            self.exit_market(ord_buy_tp_3, 'BUY', contracts/6, price_buy_in_3, time_buy_in, comm_buy_in_3, 'fsl3')
+                        if not self.check_pendings(ord_sell_sl_3) and self.data.iloc[-1].high - sl_sell_3 >= 2 and not third and self.position < 0:
+                            self.exit_market(ord_sell_tp_3, 'SELL', contracts/6, price_sell_in_3, time_sell_in, comm_sell_in_3, 'fsl3')
                             third = True; sent = False
                         ### Stop 4
-                        if not self.check_pendings(ord_buy_sl_4) and sl_buy_4 - self.data.iloc[-1].low >= 2 and not fourth and self.position > 0:
-                            self.exit_market(ord_buy_tp_4, 'BUY', contracts/6, price_buy_in_4, time_buy_in, comm_buy_in_4, 'fsl4')
+                        if not self.check_pendings(ord_sell_sl_4) and self.data.iloc[-1].high - sl_sell_4 >= 2 and not fourth and self.position < 0:
+                            self.exit_market(ord_sell_tp_4, 'SELL', contracts/6, price_sell_in_4, time_sell_in, comm_sell_in_4, 'fsl4')
                             fourth = True; sent = False
                         ### Stop 5
-                        if not self.check_pendings(ord_buy_sl_5) and sl_buy_5 - self.data.iloc[-1].low >= 2 and not fifth and self.position > 0:
-                            self.exit_market(ord_buy_tp_5, 'BUY', contracts/6, price_buy_in_5, time_buy_in, comm_buy_in_5, 'fsl5')
+                        if not self.check_pendings(ord_sell_sl_5) and self.data.iloc[-1].high - sl_sell_5 >= 2 and not fifth and self.position < 0:
+                            self.exit_market(ord_sell_tp_5, 'SELL', contracts/6, price_sell_in_5, time_sell_in, comm_sell_in_5, 'fsl5')
                             fifth = True; sent = False
                         ### Stop 6
-                        if not self.check_pendings(ord_buy_sl_6) and sl_buy_6 - self.data.iloc[-1].low >= 2 and not sixth and self.position > 0:
-                            self.exit_market(ord_buy_tp_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'fsl6')
+                        if not self.check_pendings(ord_sell_sl_6) and self.data.iloc[-1].high - sl_sell_6 >= 2 and not sixth and self.position < 0:
+                            self.exit_market(ord_sell_tp_6, 'SELL', contracts/6, price_sell_in_6, time_sell_in, comm_sell_in_6, 'fsl6')
                             sixth = True; sent = False'''
                         
                         # By target ==========
                         ## Target 1
-                        if self.check_pendings(ord_buy_tp_1) and not first and self.position > 0:    # Check if target 1 is filled
-                            self.exit_pending(ord_buy_tp_1, 'BUY', contracts/6, price_buy_in_1, time_buy_in, comm_buy_in_1, 'tp1')
+                        if self.check_pendings(ord_sell_tp_1) and not first and self.position < 0:    # Check if target 1 is filled
+                            self.exit_pending(ord_sell_tp_1, 'SELL', contracts/6, price_sell_in_1, time_sell_in, comm_sell_in_1, 'tp1')
                             first = True; sent = False
                         ## Target 2
-                        if self.check_pendings(ord_buy_tp_2) and not second and self.position > 0:    # Check if target 2 is filled
-                            self.exit_pending(ord_buy_tp_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'tp2')
+                        if self.check_pendings(ord_sell_tp_2) and not second and self.position < 0:    # Check if target 2 is filled
+                            self.exit_pending(ord_sell_tp_2, 'SELL', contracts/6, price_sell_in_2, time_sell_in, comm_sell_in_2, 'tp2')
                             second = True; sent = False
                         ## Target 3
-                        if self.check_pendings(ord_buy_tp_3) and not third and self.position > 0:    # Check if target 3 is filled
-                            self.exit_pending(ord_buy_tp_3, 'BUY', contracts/6, price_buy_in_3, time_buy_in, comm_buy_in_3, 'tp3')
+                        if self.check_pendings(ord_sell_tp_3) and not third and self.position < 0:    # Check if target 3 is filled
+                            self.exit_pending(ord_sell_tp_3, 'SELL', contracts/6, price_sell_in_3, time_sell_in, comm_sell_in_3, 'tp3')
                             third = True; sent = False
                         ## Target 4
-                        if self.check_pendings(ord_buy_tp_4) and not fourth and self.position > 0:    # Check if target 4 is filled
-                            self.exit_pending(ord_buy_tp_4, 'BUY', contracts/6, price_buy_in_4, time_buy_in, comm_buy_in_4, 'tp4')
+                        if self.check_pendings(ord_sell_tp_4) and not fourth and self.position < 0:    # Check if target 4 is filled
+                            self.exit_pending(ord_sell_tp_4, 'SELL', contracts/6, price_sell_in_4, time_sell_in, comm_sell_in_4, 'tp4')
                             fourth = True; sent = False
                         ## Target 5
-                        if self.check_pendings(ord_buy_tp_5) and not fifth and self.position > 0:    # Check if target 5 is filled
-                            self.exit_pending(ord_buy_tp_5, 'BUY', contracts/6, price_buy_in_5, time_buy_in, comm_buy_in_5, 'tp5')
+                        if self.check_pendings(ord_sell_tp_5) and not fifth and self.position < 0:    # Check if target 5 is filled
+                            self.exit_pending(ord_sell_tp_5, 'SELL', contracts/6, price_sell_in_5, time_sell_in, comm_sell_in_5, 'tp5')
                             fifth = True; sent = False
                         ## Target 6
-                        if self.check_pendings(ord_buy_tp_6) and not sixth and self.position > 0:    # Check if target 6 is filled
-                            self.exit_pending(ord_buy_tp_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'tp6')
+                        if self.check_pendings(ord_sell_tp_6) and not sixth and self.position < 0:    # Check if target 6 is filled
+                            self.exit_pending(ord_sell_tp_6, 'SELL', contracts/6, price_sell_in_6, time_sell_in, comm_sell_in_6, 'tp6')
                             sixth = True; sent = False
 
                         # Exit on friday
-                        if self.weekday == 4 and pd.to_datetime(self.hour).time() >= pd.to_datetime('16:57:00').time() and self.position > 0:
+                        if self.weekday == 4 and pd.to_datetime(self.hour).time() >= pd.to_datetime('16:57:00').time() and self.position < 0:
                             if not first:
-                                self.exit_market(ord_buy_tp_1, 'BUY', contracts/6, price_buy_in_1, time_buy_in, comm_buy_in_1, 'fri 1')
+                                self.exit_market(ord_sell_tp_1, 'SELL', contracts/6, price_sell_in_1, time_sell_in, comm_sell_in_1, 'fri 1')
                                 first = True; sent = False
                             if not second:
-                                self.exit_market(ord_buy_tp_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'fri 2')
+                                self.exit_market(ord_sell_tp_2, 'SELL', contracts/6, price_sell_in_2, time_sell_in, comm_sell_in_2, 'fri 2')
                                 second = True; sent = False
                             if not third:
-                                self.exit_market(ord_buy_tp_3, 'BUY', contracts/6, price_buy_in_3, time_buy_in, comm_buy_in_3, 'fri 3')
+                                self.exit_market(ord_sell_tp_3, 'SELL', contracts/6, price_sell_in_3, time_sell_in, comm_sell_in_3, 'fri 3')
                                 third = True; sent = False
                             if not fourth:
-                                self.exit_market(ord_buy_tp_4, 'BUY', contracts/6, price_buy_in_4, time_buy_in, comm_buy_in_4, 'fri 4')
+                                self.exit_market(ord_sell_tp_4, 'SELL', contracts/6, price_sell_in_4, time_sell_in, comm_sell_in_4, 'fri 4')
                                 fourth = True; sent = False
                             if not fifth:
-                                self.exit_market(ord_buy_tp_5, 'BUY', contracts/6, price_buy_in_5, time_buy_in, comm_buy_in_5, 'fri 5')
+                                self.exit_market(ord_sell_tp_5, 'SELL', contracts/6, price_sell_in_5, time_sell_in, comm_sell_in_5, 'fri 5')
                                 fifth = True; sent = False
                             if not sixth:
-                                self.exit_market(ord_buy_tp_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'fri 6')
+                                self.exit_market(ord_sell_tp_6, 'SELL', contracts/6, price_sell_in_6, time_sell_in, comm_sell_in_6, 'fri 6')
                                 sixth = True; sent = False
-
-                            '''if self.position == contracts:
-                                self.exit_market(ord_buy_tp_1, 'BUY', contracts/6, price_buy_in_1, time_buy_in, comm_buy_in_1, 'fri')
-                                self.exit_market(ord_buy_tp_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'fri')
-                                sent = False
-                            else:
-                                self.exit_market(ord_buy_tp_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'fri')
-                                sent = False'''
 
                 else:
                     if not self.interrumption:
@@ -468,15 +460,19 @@ class LiveOctopus(Live, Indicators):
 if __name__ == '__main__':
     symbol = 'NQ'
     port = 7497
-    client = 152
+    client = 153
 
-    live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus Longs (demo)', temp='1 min', port=port, client=client, real=False)
+    live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus Shorts (demo)', temp='1 min', port=port, client=client, real=False)
     
-    init = ['2022-03-25', '2022-03-01', '2022-01-07']
-    final = '2022-04-01'
-
+    init = ['2022-03-18', '2022-02-25', '2021-12-31']
+    final = '2022-03-25'
+    
     periods = ['close', 'SMA_21', 'SMA_89']
-    #tempos = ['540', '720']          #['180', '240'] ['540', '720'] #
+    #tempos = ['540', '720']          #['180', '240'] ['540', '720']
     tempos = [['60', '120'], ['180', '240'], ['540', '720']]
-    live_octopus.run_strategy(contracts=6, stop_1=12, target_1=9, target_2=11, trailing_1=0.9, stop_2=35, target_3=29, target_4=66, trailing_2=0.6,
-                          stop_3=81, target_5=93, target_6=78, trailing_3=0.9, periods=periods, tempos=tempos, init=init, final=final)
+    live_octopus.run_strategy(contracts=6, stop_1=15, target_1=15, target_2=19, trailing_1=0.6, stop_2=47, target_3=25, target_4=27, trailing_2=0.9,
+                          stop_3=93, target_5=93, target_6=110, trailing_3=0.8, periods=periods, tempos=tempos, init=init, final=final)
+                
+    # 15.0	15.0	19.0	0.6
+    # 47.0	25.0	27.0	0.9
+    # 93.0	93.0	110.0	0.9

@@ -466,9 +466,9 @@ class LiveOctopus(Live, Indicators):
             self.print('%s %s | Session Ended. Good Bye!' % (self.date, self.hour))
 
 if __name__ == '__main__':
-    symbol = 'NQ'
+    symbol = 'ES'
     port = 7497
-    client = 152
+    client = 252
 
     live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus Longs (demo)', temp='1 min', port=port, client=client, real=False)
     
@@ -478,5 +478,10 @@ if __name__ == '__main__':
     periods = ['close', 'SMA_21', 'SMA_89']
     #tempos = ['540', '720']          #['180', '240'] ['540', '720'] #
     tempos = [['60', '120'], ['180', '240'], ['540', '720']]
-    live_octopus.run_strategy(contracts=6, stop_1=12, target_1=9, target_2=11, trailing_1=0.9, stop_2=35, target_3=29, target_4=66, trailing_2=0.6,
-                          stop_3=81, target_5=93, target_6=78, trailing_3=0.9, periods=periods, tempos=tempos, init=init, final=final)
+    live_octopus.run_strategy(contracts=6, stop_1=3, target_1=2, target_2=3, trailing_1=0.9, stop_2=6, target_3=5, target_4=9, trailing_2=0.9,
+                          stop_3=18, target_5=12, target_6=20, trailing_3=0.9, periods=periods, tempos=tempos, init=init, final=final)
+
+# ES
+## LONGS
+# stop_1=3, target_1=2, target_2=3, trailing_1=0.9, stop_2=6, target_3=5, target_4=9, trailing_2=0.9,
+#                          stop_3=18, target_5=12, target_6=20, trailing_3=0.9

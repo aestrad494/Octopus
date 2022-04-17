@@ -1,0 +1,7 @@
+Trying to Connect to Trading Platform...
+<IB connected to 127.0.0.1:7497 clientId=152>
+No opened positions
+2022-03-16 23:51:02 | Octopus 6 Contracts Bot Turned On
+2022-03-16 23:51:02 | Running with stop_1: 18 & target_1: 18 & target_2: 25 & trailing_1: 0.60 &             stop_2: 52 & target_3: 52 & target_4: 50 & trailing_2: 0.30 &             stop_3: 54 & target_5: 79 & target_6: 122 & trailing_3: 0.90 
+Downloading Historical NQ Data...
+Historical Data retrieved! from 2022-03-02 00:00:00 to 2022-03-16 23:50:50
