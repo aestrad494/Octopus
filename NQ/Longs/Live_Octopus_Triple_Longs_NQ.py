@@ -472,12 +472,19 @@ if __name__ == '__main__':
 
     live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus Longs (demo)', temp='1 min', port=port, client=client, real=False)
     
-    init = ['2022-03-25', '2022-03-01', '2022-01-07']
-    final = '2022-04-01'
+    init = ['2022-04-08', '2022-03-18', '2022-01-21']
+    final = '2022-04-15'
 
     periods = ['close', 'SMA_21', 'SMA_89']
-    #tempos = ['540', '720']          #['180', '240'] ['540', '720'] #
     tempos = [['60', '120'], ['180', '240'], ['540', '720']]
+<<<<<<< HEAD
 
     live_octopus.run_strategy(contracts=6, stop_1=12, target_1=9, target_2=11, trailing_1=0.9, stop_2=35, target_3=29, target_4=66, trailing_2=0.6,
                           stop_3=81, target_5=93, target_6=78, trailing_3=0.9, periods=periods, tempos=tempos, init=init, final=final)
+=======
+    live_octopus.run_strategy(contracts=6, stop_1=13, target_1=11, target_2=19, trailing_1=0.9, stop_2=37, target_3=27, target_4=31, trailing_2=0.8,
+                          stop_3=66, target_5=79, target_6=91, trailing_3=0.4, periods=periods, tempos=tempos, init=init, final=final)
+
+#stop_1=13, target_1=11, target_2=19, trailing_1=0.9, stop_2=37, target_3=27, target_4=31, trailing_2=0.8,
+#                          stop_3=66, target_5=79, target_6=91, trailing_3=0.4
+>>>>>>> e010b02119d3fee200873fb3fcfcd57b1f42ffdb

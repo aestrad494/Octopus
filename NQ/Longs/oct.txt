@@ -1,89 +1,14 @@
-2022-03-31 23:35:26.959640: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-03-31 23:35:26.959723: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-2022-03-31 23:35:36.472764: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-03-31 23:35:36.472832: W tensorflow/stream_executor/cuda/cuda_driver.cc:269] failed call to cuInit: UNKNOWN ERROR (303)
-2022-03-31 23:35:36.472872: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (ib): /proc/driver/nvidia/version does not exist
-2022-03-31 23:35:36.473644: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+2022-04-11 12:59:10.853529: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-04-11 12:59:10.853602: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2022-04-11 12:59:14.067561: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-04-11 12:59:14.067649: W tensorflow/stream_executor/cuda/cuda_driver.cc:269] failed call to cuInit: UNKNOWN ERROR (303)
+2022-04-11 12:59:14.067694: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (ib): /proc/driver/nvidia/version does not exist
+2022-04-11 12:59:14.068726: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-04-01 00:00:07.556801: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:185] None of the MLIR Optimization Passes are enabled (registered 2)
+2022-04-11 13:12:02.122679: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:185] None of the MLIR Optimization Passes are enabled (registered 2)
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_input'), name='dense_input', description="created by layer 'dense_input'"), but it was called on an input with incompatible shape (None, 1, 12).
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_input'), name='dense_input', description="created by layer 'dense_input'"), but it was called on an input with incompatible shape (None, 1, 12).
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_4_input'), name='dense_4_input', description="created by layer 'dense_4_input'"), but it was called on an input with incompatible shape (None, 1, 12).
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_4_input'), name='dense_4_input', description="created by layer 'dense_4_input'"), but it was called on an input with incompatible shape (None, 1, 12).
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_8_input'), name='dense_8_input', description="created by layer 'dense_8_input'"), but it was called on an input with incompatible shape (None, 1, 12).
 WARNING:tensorflow:Model was constructed with shape (None, 12) for input KerasTensor(type_spec=TensorSpec(shape=(None, 12), dtype=tf.float32, name='dense_8_input'), name='dense_8_input', description="created by layer 'dense_8_input'"), but it was called on an input with incompatible shape (None, 1, 12).
-ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
-ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
-ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
-ERROR:ib_insync.wrapper:Error 1100, reqId -1: Connectivity between IB and Trader Workstation has been lost.
-ERROR:ib_insync.wrapper:Error 1102, reqId -1: Connectivity between IB and Trader Workstation has been restored - data maintained.
-QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
-Traceback (most recent call last):
-  File "/root/miniconda3/lib/python3.7/site-packages/pandas/core/arrays/datetimes.py", line 2085, in objects_to_datetime64ns
-    values, tz_parsed = conversion.datetime_to_datetime64(data)
-  File "pandas/_libs/tslibs/conversion.pyx", line 350, in pandas._libs.tslibs.conversion.datetime_to_datetime64
-TypeError: Unrecognized value type: <class 'str'>
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "Live_Octopus_Triple_Longs_NQ.py", line 482, in <module>
-    stop_3=31, target_5=93, target_6=78, trailing_3=0.7, periods=periods, tempos=tempos, init=init, final=final)
-  File "Live_Octopus_Triple_Longs_NQ.py", line 227, in run_strategy
-    self.weekly_metrics()                  # Send week metrics message to telegram
-  File "/datos/Octopus/NQ/Longs/Live_Class.py", line 280, in weekly_metrics
-    trades.index = pd.to_datetime(trades.index)
-  File "/root/miniconda3/lib/python3.7/site-packages/pandas/core/tools/datetimes.py", line 814, in to_datetime
-    result = convert_listlike(arg, format, name=arg.name)
-  File "/root/miniconda3/lib/python3.7/site-packages/pandas/core/tools/datetimes.py", line 472, in _convert_listlike_datetimes
-    allow_object=True,
-  File "/root/miniconda3/lib/python3.7/site-packages/pandas/core/arrays/datetimes.py", line 2090, in objects_to_datetime64ns
-    raise e
-  File "/root/miniconda3/lib/python3.7/site-packages/pandas/core/arrays/datetimes.py", line 2081, in objects_to_datetime64ns
-    require_iso8601=require_iso8601,
-  File "pandas/_libs/tslib.pyx", line 364, in pandas._libs.tslib.array_to_datetime
-  File "pandas/_libs/tslib.pyx", line 591, in pandas._libs.tslib.array_to_datetime
-  File "pandas/_libs/tslib.pyx", line 726, in pandas._libs.tslib.array_to_datetime_object
-  File "pandas/_libs/tslib.pyx", line 717, in pandas._libs.tslib.array_to_datetime_object
-  File "pandas/_libs/tslibs/parsing.pyx", line 243, in pandas._libs.tslibs.parsing.parse_datetime_string
-  File "/root/miniconda3/lib/python3.7/site-packages/dateutil/parser/_parser.py", line 1368, in parse
-    return DEFAULTPARSER.parse(timestr, **kwargs)
-  File "/root/miniconda3/lib/python3.7/site-packages/dateutil/parser/_parser.py", line 643, in parse
-    raise ParserError("Unknown string format: %s", timestr)
-dateutil.parser._parser.ParserError: Unknown string format: 2022-02-08 11::31:24
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
-WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/guide/checkpoint#loading_mechanics for details.
-WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/guide/checkpoint#loading_mechanics for details.
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
-WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/guide/checkpoint#loading_mechanics for details.
-WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/guide/checkpoint#loading_mechanics for details.
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
-WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
-WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/guide/checkpoint#loading_mechanics for details.
-WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/guide/checkpoint#loading_mechanics for details.
