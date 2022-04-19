@@ -1,0 +1,4 @@
+  File "Live_Octopus_Triple_Longs_NQ.py", line 480
+    <<<<<<< HEAD
+     ^
+SyntaxError: invalid syntax
