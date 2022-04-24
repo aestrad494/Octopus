@@ -1,2 +1,2 @@
-model_checkpoint_path: "octopus_model_RTY_2022-01-21_2022-04-15_540_720.h5f"
-all_model_checkpoint_paths: "octopus_model_RTY_2022-01-21_2022-04-15_540_720.h5f"
+model_checkpoint_path: "octopus_model_M2K_2022-01-28_2022-04-22_540_720.h5f"
+all_model_checkpoint_paths: "octopus_model_M2K_2022-01-28_2022-04-22_540_720.h5f"
