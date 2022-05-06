@@ -125,6 +125,13 @@ class LiveOctopus(Live, Indicators):
 
         if self.operable:
             # Defining Variables
+            mu_1 = pd.read_csv('mu_std/mu_%s_%s.csv'%(tempos[0][0], tempos[0][1])).rename(columns={'Unnamed: 0':'item','0':'value'}).set_index('item')
+            std_1 = pd.read_csv('mu_std/std_%s_%s.csv'%(tempos[0][0], tempos[0][1])).rename(columns={'Unnamed: 0':'item','0':'value'}).set_index('item')
+            mu_2 = pd.read_csv('mu_std/mu_%s_%s.csv'%(tempos[1][0], tempos[1][1])).rename(columns={'Unnamed: 0':'item','0':'value'}).set_index('item')
+            std_2 = pd.read_csv('mu_std/std_%s_%s.csv'%(tempos[1][0], tempos[1][1])).rename(columns={'Unnamed: 0':'item','0':'value'}).set_index('item')
+            mu_3 = pd.read_csv('mu_std/mu_%s_%s.csv'%(tempos[2][0], tempos[2][1])).rename(columns={'Unnamed: 0':'item','0':'value'}).set_index('item')
+            std_3 = pd.read_csv('mu_std/std_%s_%s.csv'%(tempos[2][0], tempos[2][1])).rename(columns={'Unnamed: 0':'item','0':'value'}).set_index('item')
+
             prediction_1 = 0; prediction_2 = 0; prediction_3 = 0
             sent = False; first = False; second = False; third = False; fourth = False; fifth = False; sixth = False
             self.save_position()
@@ -161,6 +168,11 @@ class LiveOctopus(Live, Indicators):
             lags = 1
             allow_entry = True
 
+            # Defining mu and std
+            mu_1_feat = mu_1.T[feat_1]; std_1_feat = std_1.T[feat_1]
+            mu_2_feat = mu_2.T[feat_2]; std_2_feat = std_2.T[feat_2]
+            mu_3_feat = mu_3.T[feat_3]; std_3_feat = std_3.T[feat_3]
+            
             models = []
             for i in range(3):
                 temp = tempos[i]
@@ -281,14 +293,17 @@ class LiveOctopus(Live, Indicators):
                             model_input_12 = list(data_1_eval.iloc[-1][features_1].values)
                             model_input_12.extend(list(data_2_eval.iloc[-1][features_2].values))
                             model_input_12 = np.reshape(model_input_12, [1, lags, n_features])
+                            #model_input_12 = (model_input_12 - mu_feat_1.values)/std_feat_1.values
 
                             model_input_34 = list(data_3_eval.iloc[-1][features_3].values)
                             model_input_34.extend(list(data_4_eval.iloc[-1][features_4].values))
                             model_input_34 = np.reshape(model_input_34, [1, lags, n_features])
+                            #model_input_34 = (model_input_34 - mu_feat_2.values)/std_feat_2.values
 
                             model_input_56 = list(data_5_eval.iloc[-1][features_5].values)
                             model_input_56.extend(list(data_6_eval.iloc[-1][features_6].values))
                             model_input_56 = np.reshape(model_input_56, [1, lags, n_features])
+                            #model_input_56 = (model_input_56 - mu_feat_3.values)/std_feat_3.values
                             
                             prediction_1 = 1 if model_1.predict(model_input_12)[0][0][0] > 0.9 else 0
                             prediction_2 = 1 if model_2.predict(model_input_34)[0][0][0] > 0.9 else 0
