@@ -9,7 +9,7 @@ from Live_Class import Live
 from Indicators import Indicators
 import numpy as np
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from tzlocal import get_localzone
 import tensorflow as tf
 from tensorflow.keras.layers import Dense, Dropout
@@ -112,16 +112,17 @@ class LiveOctopus(Live, Indicators):
         print(message)
         sample.close()
 
-    def run_strategy(self, contracts, stop_1, target_1, target_2, trailing_1, stop_2, target_3, target_4, trailing_2, stop_3, target_5, target_6, trailing_3, periods, tempos, init, final):
+    def run_strategy(self, contracts, stop_1, target_1, target_2, trailing_1, stop_2, target_3, target_4, trailing_2, stop_3, target_5, target_6, trailing_3, periods, tempos, init, final, pred_filter, pause_time):
         self.print('%s %s | Octopus %d Contracts Bot Turned On' % (self.date, self.hour, contracts))
         self.print('%s %s | Running with stop_1: %d & target_1: %d & target_2: %d & trailing_1: %.2f & \
-            stop_2: %d & target_3: %d & target_4: %d & trailing_2: %.2f & \
-            stop_3: %d & target_5: %d & target_6: %d & trailing_3: %.2f '%
-                      (self.date, self.hour, stop_1, target_1, target_2, trailing_1,
-                                            stop_2, target_3, target_4, trailing_2,
-                                            stop_3, target_5, target_6, trailing_3))
+            \nstop_2: %d & target_3: %d & target_4: %d & trailing_2: %.2f & \
+            \nstop_3: %d & target_5: %d & target_6: %d & trailing_3: %.2f & \
+            \npred_filter = %.2f & pause_time = %.2f' %
+                (self.date, self.hour, stop_1, target_1, target_2, trailing_1, stop_2, target_3, target_4, trailing_2,
+                                        stop_3, target_5, target_6, trailing_3, pred_filter, pause_time))
         # Check if operable schedule
         self.operable_schedule()
+        allow_time = True
 
         if self.operable:
             # Defining Variables
@@ -137,27 +138,20 @@ class LiveOctopus(Live, Indicators):
             self.save_position()
             self.global_position = self.check_global_position()
             prev = 3
-            #max_tempos = max([int(t) for t in tempos])
-            #max_tempos = max([int(tem[1]) for tem in tempos])
+            
             max_tempos_1 = int(tempos[0][1])
             max_tempos_2 = int(tempos[1][1])
             max_tempos_3 = int(tempos[2][1])
 
             max_periods = max([int(periods[i][4:]) for i in range(1, len(periods))])
-            #idx_back = int((max(periods)+5)*max(tempos)/5)
-            #idx_back = int((max_periods+5)*max_tempos/5)
             idx_back_1 = int((max_periods+5)*max_tempos_1/5)
             idx_back_2 = int((max_periods+5)*max_tempos_2/5)
             idx_back_3 = int((max_periods+5)*max_tempos_3/5)
-            # ana_time = int(max_tempos / 60)
 
             feat_1 = self.get_features(tempos[0], periods)
             feat_2 = self.get_features(tempos[1], periods)
             feat_3 = self.get_features(tempos[2], periods)
-            # features = ['subcloseSMA_21_60', 'subcloseSMA_89_60', 'subSMA_21SMA_89_60',
-            #             'price_slope_60', 's21_slope_60', 's89_slope_60', 
-            #             'subcloseSMA_21_120', 'subcloseSMA_89_120', 'subSMA_21SMA_89_120',
-            #             'price_slope_120', 's21_slope_120', 's89_slope_120']
+            
             n_features = len(feat_1)
             features_1 = feat_1[:int(n_features/2)]
             features_2 = feat_1[int(n_features/2):]
@@ -193,19 +187,6 @@ class LiveOctopus(Live, Indicators):
             model_2 = models[1]
             model_3 = models[2]
             print('models loaded!')
-
-
-            '''parameters = pd.read_csv('parameters/parameters_%s_%s_%s.csv'%(self.symbol, tempos[0], tempos[1]))
-            layers = parameters.layers[0]
-            hidden_units = parameters.hidden_units[0]
-            learning_rate = parameters.learning_rate[0]
-            dropout = parameters.dropout[0]'''
-
-            '''optimizer = Adam(learning_rate=learning_rate)
-            model = self.create_model(optimizer=optimizer, hl=layers, hu=hidden_units, dropout=dropout, input_dim=n_features)
-            #model.load_weights('model/octopus_model_%s.h5f'%self.symbol)
-            model.load_weights('model/octopus_model_%s_%s_%s_%s_%s.h5f'%(self.symbol, init, final, tempos[0], tempos[1]))
-            print('model loaded!')'''
 
             #target condition
             if target_1 > target_2: target_2 = target_1
@@ -292,40 +273,37 @@ class LiveOctopus(Live, Indicators):
                             model_input_12 = list(data_1_eval.iloc[-1][features_1].values)
                             model_input_12.extend(list(data_2_eval.iloc[-1][features_2].values))
                             model_input_12 = np.reshape(model_input_12, [1, lags, n_features])
-                            #model_input_12 = (model_input_12 - mu_feat_1.values)/std_feat_1.values
+                            model_input_12 = (model_input_12 - mu_1_feat.values)/std_1_feat.values
 
                             model_input_34 = list(data_3_eval.iloc[-1][features_3].values)
                             model_input_34.extend(list(data_4_eval.iloc[-1][features_4].values))
                             model_input_34 = np.reshape(model_input_34, [1, lags, n_features])
-                            #model_input_34 = (model_input_34 - mu_feat_2.values)/std_feat_2.values
+                            model_input_34 = (model_input_34 - mu_2_feat.values)/std_2_feat.values
 
                             model_input_56 = list(data_5_eval.iloc[-1][features_5].values)
                             model_input_56.extend(list(data_6_eval.iloc[-1][features_6].values))
                             model_input_56 = np.reshape(model_input_56, [1, lags, n_features])
-                            #model_input_56 = (model_input_56 - mu_feat_3.values)/std_feat_3.values
+                            model_input_56 = (model_input_56 - mu_3_feat.values)/std_3_feat.values
                             
-                            print(model_1.predict(model_input_12))   ################################
-                            prediction_1 = 1 if model_1.predict(model_input_12)[0][0][0] > 0.9 else 0
-                            prediction_2 = 1 if model_2.predict(model_input_34)[0][0][0] > 0.9 else 0
-                            prediction_3 = 1 if model_3.predict(model_input_56)[0][0][0] > 0.9 else 0
+                            prediction_1 = 1 if model_1.predict(model_input_12)[0][0][0] > pred_filter else 0
+                            prediction_2 = 1 if model_2.predict(model_input_34)[0][0][0] > pred_filter else 0
+                            prediction_3 = 1 if model_3.predict(model_input_56)[0][0][0] > pred_filter else 0
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input_12, prediction_1))
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input_34, prediction_2))
                             self.print('%s %s | %s : %d'%(self.date, self.hour, model_input_56, prediction_3))
                             allow_entry = True
 
-                            # prediction_1 = 1
-                            # prediction_2 = 1
-                            # prediction_3 = 1
-
                         else: allow_entry = False
-                        # if pd.to_datetime(self.hour).minute % ana_time != 0 and second > 5:
-                        # if second > 5 or pd.to_datetime(self.hour).minute % ana_time != 0:
-                        #     allow_entry = False
                             
+                        if not allow_time:
+                            current_time = pd.to_datetime('%s %s'%(self.date, self.hour))
+                            if current_time - exit_time >= timedelta(hours=pause_time): 
+                                allow_time = True
+                        
                         # Entry conditions
                         if not (self.weekday == 4 and pd.to_datetime(self.hour).time() > pd.to_datetime('16:00:00').time()):
                             ## Buys
-                            if not sent and prediction_1 > 0 and prediction_2 > 0 and prediction_3 > 0 and allow_entry:
+                            if not sent and prediction_1 > 0 and prediction_2 > 0 and prediction_3 > 0 and allow_entry and allow_time:
                                 max_stop_1 = stop_1*self.leverage*contracts/3
                                 max_stop_2 = stop_2*self.leverage*contracts/3
                                 max_stop_3 = stop_3*self.leverage*contracts/3
@@ -453,14 +431,10 @@ class LiveOctopus(Live, Indicators):
                             if not sixth:
                                 self.exit_market(ord_buy_tp_6, 'BUY', contracts/6, price_buy_in_6, time_buy_in, comm_buy_in_6, 'fri 6')
                                 sixth = True; sent = False
-
-                            '''if self.position == contracts:
-                                self.exit_market(ord_buy_tp_1, 'BUY', contracts/6, price_buy_in_1, time_buy_in, comm_buy_in_1, 'fri')
-                                self.exit_market(ord_buy_tp_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'fri')
-                                sent = False
-                            else:
-                                self.exit_market(ord_buy_tp_2, 'BUY', contracts/6, price_buy_in_2, time_buy_in, comm_buy_in_2, 'fri')
-                                sent = False'''
+                        
+                        if self.position == 0:
+                            allow_time = False
+                            exit_time = pd.to_datetime('%s %s'%(self.date, self.hour))
 
                 else:
                     if not self.interrumption:
@@ -487,11 +461,11 @@ if __name__ == '__main__':
 
     live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus Longs (demo)', temp='1 min', port=port, client=client, real=False)
     
-    init = ['2022-04-15', '2022-03-25', '2022-01-28']
-    final = '2022-04-22'
+    init = ['2022-05-06', '2022-04-15', '2022-02-18']
+    final = '2022-05-13'
 
     periods = ['close', 'SMA_21', 'SMA_89']
     tempos = [['60', '120'], ['180', '240'], ['540', '720']]
 
-    live_octopus.run_strategy(contracts=6, stop_1=16, target_1=9, target_2=21, trailing_1=0.7, stop_2=34, target_3=23, target_4=25, trailing_2=0.9,
-                          stop_3=28, target_5=85, target_6=100, trailing_3=0.9, periods=periods, tempos=tempos, init=init, final=final)
+    live_octopus.run_strategy(contracts=6, stop_1=26, target_1=26, target_2=35, trailing_1=0.5, stop_2=56, target_3=56, target_4=75, trailing_2=0.3,
+                          stop_3=91, target_5=91, target_6=107, trailing_3=0.3, periods=periods, tempos=tempos, init=init, final=final, pred_filter=0.6, pause_time=1)
