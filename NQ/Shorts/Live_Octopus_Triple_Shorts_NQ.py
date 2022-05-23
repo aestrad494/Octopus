@@ -461,8 +461,8 @@ if __name__ == '__main__':
 
     live_octopus = LiveOctopus(symbol=symbol, bot_name='Octopus Shorts (demo)', temp='1 min', port=port, client=client, real=False)
     
-    init = ['2022-05-06', '2022-04-15', '2022-02-18']
-    final = '2022-05-13'
+    init = ['2022-05-13', '2022-04-22', '2022-02-25']
+    final = '2022-05-20'
     
     periods = ['close', 'SMA_21', 'SMA_89']
     tempos = [['60', '120'], ['180', '240'], ['540', '720']]
