@@ -1,2 +1,2 @@
 layers,hidden_units,learning_rate,dropout
-16,8,0.001,False
+4,64,0.001,False

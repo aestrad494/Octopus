@@ -1,2 +1,2 @@
-model_checkpoint_path: "octopus_model_NQ_2022-02-18_2022-05-13_540_720.h5f"
-all_model_checkpoint_paths: "octopus_model_NQ_2022-02-18_2022-05-13_540_720.h5f"
+model_checkpoint_path: "octopus_model_NQ_2022-02-25_2022-05-20_540_720.h5f"
+all_model_checkpoint_paths: "octopus_model_NQ_2022-02-25_2022-05-20_540_720.h5f"
